@@ -100,5 +100,121 @@
     "word": "petit", 
     "target_ipa": "/ə/", 
     "segments": [{ "text": "p", "underline": false }, { "text": "e", "underline": true }, { "text": "tit", "underline": false }] 
+  },
+  [
+  /* --- EXISTING ENTRIES REMAIN HERE --- */
+
+  /* --- The "I" vs "Y" High Vowel Battle --- */
+  { 
+    "word": "lit", 
+    "target_ipa": "/i/", 
+    "segments": [{ "text": "l", "underline": false }, { "text": "i", "underline": true }, { "text": "t", "underline": false }] 
+  },
+  { 
+    "word": "lu", 
+    "target_ipa": "/y/", 
+    "segments": [{ "text": "l", "underline": false }, { "text": "u", "underline": true }] 
+  },
+  { 
+    "word": "si", 
+    "target_ipa": "/i/", 
+    "segments": [{ "text": "s", "underline": false }, { "text": "i", "underline": true }] 
+  },
+  { 
+    "word": "su", 
+    "target_ipa": "/y/", 
+    "segments": [{ "text": "s", "underline": false }, { "text": "u", "underline": true }] 
+  },
+  { 
+    "word": "vie", 
+    "target_ipa": "/i/", 
+    "segments": [{ "text": "v", "underline": false }, { "text": "ie", "underline": true }] 
+  },
+  { 
+    "word": "vue", 
+    "target_ipa": "/y/", 
+    "segments": [{ "text": "v", "underline": false }, { "text": "ue", "underline": true }] 
+  },
+
+  /* --- S vs SS (The /s/ vs /z/ vibration) --- */
+  { 
+    "word": "poisson", 
+    "target_ipa": "/s/", 
+    "segments": [{ "text": "poi", "underline": false }, { "text": "ss", "underline": true }, { "text": "on", "underline": false }] 
+  },
+  { 
+    "word": "poison", 
+    "target_ipa": "/z/", 
+    "segments": [{ "text": "poi", "underline": false }, { "text": "s", "underline": true }, { "text": "on", "underline": false }] 
+  },
+  { 
+    "word": "dessert", 
+    "target_ipa": "/s/", 
+    "segments": [{ "text": "de", "underline": false }, { "text": "ss", "underline": true }, { "text": "ert", "underline": false }] 
+  },
+  { 
+    "word": "désert", 
+    "target_ipa": "/z/", 
+    "segments": [{ "text": "dé", "underline": false }, { "text": "s", "underline": true }, { "text": "ert", "underline": false }] 
+  },
+  { 
+    "word": "basse", 
+    "target_ipa": "/s/", 
+    "segments": [{ "text": "ba", "underline": false }, { "text": "ss", "underline": true }, { "text": "e", "underline": false }] 
+  },
+  { 
+    "word": "base", 
+    "target_ipa": "/z/", 
+    "segments": [{ "text": "ba", "underline": false }, { "text": "s", "underline": true }, { "text": "e", "underline": false }] 
+  },
+
+  /* --- The Rounded E Spectrum (/ø/ vs /œ/) --- */
+  { 
+    "word": "peu", 
+    "target_ipa": "/ø/", 
+    "segments": [{ "text": "p", "underline": false }, { "text": "eu", "underline": true }] 
+  },
+  { 
+    "word": "peur", 
+    "target_ipa": "/œ/", 
+    "segments": [{ "text": "p", "underline": false }, { "text": "eur", "underline": true }] 
+  },
+  { 
+    "word": "deux", 
+    "target_ipa": "/ø/", 
+    "segments": [{ "text": "d", "underline": false }, { "text": "eux", "underline": true }] 
+  },
+  { 
+    "word": "fleur", 
+    "target_ipa": "/œ/", 
+    "segments": [{ "text": "fl", "underline": false }, { "text": "eur", "underline": true }] 
+  },
+  { 
+    "word": "bleu", 
+    "target_ipa": "/ø/", 
+    "segments": [{ "text": "bl", "underline": false }, { "text": "eu", "underline": true }] 
+  },
+  { 
+    "word": "sœur", 
+    "target_ipa": "/œ/", 
+    "segments": [{ "text": "s", "underline": false }, { "text": "œur", "underline": true }] 
+  },
+
+  /* --- Extra Nasal Variation --- */
+  { 
+    "word": "un", 
+    "target_ipa": "/ɛ̃/", 
+    "segments": [{ "text": "un", "underline": true }] 
+  },
+  { 
+    "word": "an", 
+    "target_ipa": "/ɑ̃/", 
+    "segments": [{ "text": "an", "underline": true }] 
+  },
+  { 
+    "word": "on", 
+    "target_ipa": "/ɔ̃/", 
+    "segments": [{ "text": "on", "underline": true }] 
   }
+]
 ]

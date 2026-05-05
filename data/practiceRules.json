@@ -6,9 +6,33 @@
     "option_buttons": ["/y/", "/u/"]
   },
   {
-    "id": "e_gradient",
+    "id": "e_spectrum",
     "title": "The E Spectrum",
     "target_sounds": ["/e/", "/ɛ/", "/a/"],
     "option_buttons": ["/e/", "/ɛ/", "/a/"]
+  },
+  {
+    "id": "nasal_triangle",
+    "title": "The Nasal Triangle",
+    "target_sounds": ["/ɑ̃/", "/ɛ̃/", "/ɔ̃/"],
+    "option_buttons": ["/ɑ̃/", "/ɛ̃/", "/ɔ̃/"]
+  },
+  {
+    "id": "i_vs_y",
+    "title": "I vs Y (The High Vowels)",
+    "target_sounds": ["/i/", "/y/"],
+    "option_buttons": ["/i/", "/y/"]
+  },
+  {
+    "id": "s_vs_z",
+    "title": "S vs SS (The Z-Vibration)",
+    "target_sounds": ["/s/", "/z/"],
+    "option_buttons": ["/s/", "/z/"]
+  },
+  {
+    "id": "schwa_vs_eu",
+    "title": "The 'E' vs 'EU'",
+    "target_sounds": ["/ə/", "/ø/", "/œ/"],
+    "option_buttons": ["/ə/", "/ø/", "/œ/"]
   }
 ]
