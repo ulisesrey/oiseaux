@@ -1,0 +1,14 @@
+[
+  {
+    "id": "u_ou",
+    "title": "U vs OU",
+    "target_sounds": ["/y/", "/u/"],
+    "option_buttons": ["/y/", "/u/"]
+  },
+  {
+    "id": "e_gradient",
+    "title": "The E Spectrum",
+    "target_sounds": ["/e/", "/ɛ/", "/a/"],
+    "option_buttons": ["/e/", "/ɛ/", "/a/"]
+  }
+]

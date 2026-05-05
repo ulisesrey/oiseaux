@@ -1,0 +1,104 @@
+[
+  /* --- The "U" vs "OU" Battle --- */
+  { 
+    "word": "tu", 
+    "target_ipa": "/y/", 
+    "segments": [{ "text": "t", "underline": false }, { "text": "u", "underline": true }] 
+  },
+  { 
+    "word": "tout", 
+    "target_ipa": "/u/", 
+    "segments": [{ "text": "t", "underline": false }, { "text": "out", "underline": true }] 
+  },
+  { 
+    "word": "rue", 
+    "target_ipa": "/y/", 
+    "segments": [{ "text": "r", "underline": false }, { "text": "ue", "underline": true }] 
+  },
+  { 
+    "word": "roue", 
+    "target_ipa": "/u/", 
+    "segments": [{ "text": "r", "underline": false }, { "text": "oue", "underline": true }] 
+  },
+  { 
+    "word": "jus", 
+    "target_ipa": "/y/", 
+    "segments": [{ "text": "j", "underline": false }, { "text": "u", "underline": true }, { "text": "s", "underline": false }] 
+  },
+  { 
+    "word": "joue", 
+    "target_ipa": "/u/", 
+    "segments": [{ "text": "j", "underline": false }, { "text": "oue", "underline": true }] 
+  },
+
+  /* --- The "E" Spectrum (/e/, /ɛ/, /a/) --- */
+  { 
+    "word": "café", 
+    "target_ipa": "/e/", 
+    "segments": [{ "text": "caf", "underline": false }, { "text": "é", "underline": true }] 
+  },
+  { 
+    "word": "merci", 
+    "target_ipa": "/ɛ/", 
+    "segments": [{ "text": "m", "underline": false }, { "text": "er", "underline": true }, { "text": "ci", "underline": false }] 
+  },
+  { 
+    "word": "chat", 
+    "target_ipa": "/a/", 
+    "segments": [{ "text": "ch", "underline": false }, { "text": "at", "underline": true }] 
+  },
+  { 
+    "word": "parler", 
+    "target_ipa": "/e/", 
+    "segments": [{ "text": "parl", "underline": false }, { "text": "er", "underline": true }] 
+  },
+  { 
+    "word": "fête", 
+    "target_ipa": "/ɛ/", 
+    "segments": [{ "text": "f", "underline": false }, { "text": "ête", "underline": true }] 
+  },
+
+  /* --- The Nasals (/ɑ̃/, /ɛ̃/, /ɔ̃/) --- */
+  { 
+    "word": "enfant", 
+    "target_ipa": "/ɑ̃/", 
+    "segments": [{ "text": "enf", "underline": false }, { "text": "ant", "underline": true }] 
+  },
+  { 
+    "word": "vin", 
+    "target_ipa": "/ɛ̃/", 
+    "segments": [{ "text": "v", "underline": false }, { "text": "in", "underline": true }] 
+  },
+  { 
+    "word": "bonbon", 
+    "target_ipa": "/ɔ̃/", 
+    "segments": [{ "text": "b", "underline": false }, { "text": "on", "underline": true }, { "text": "bon", "underline": false }] 
+  },
+  { 
+    "word": "main", 
+    "target_ipa": "/ɛ̃/", 
+    "segments": [{ "text": "m", "underline": false }, { "text": "ain", "underline": true }] 
+  },
+  { 
+    "word": "temps", 
+    "target_ipa": "/ɑ̃/", 
+    "segments": [{ "text": "t", "underline": false }, { "text": "emps", "underline": true }] 
+  },
+  { 
+    "word": "maison", 
+    "target_ipa": "/ɔ̃/", 
+    "segments": [{ "text": "mais", "underline": false }, { "text": "on", "underline": true }] 
+  },
+
+  /* --- The "French E" /ə/ (The Schwa) --- */
+  { 
+    "word": "le", 
+    "target_ipa": "/ə/", 
+    "segments": [{ "text": "l", "underline": false }, { "text": "e", "underline": true }] 
+  },
+  { 
+    "word": "petit", 
+    "target_ipa": "/ə/", 
+    "segments": [{ "text": "p", "underline": false }, { "text": "e", "underline": true }, { "text": "tit", "underline": false }] 
+  }
+]

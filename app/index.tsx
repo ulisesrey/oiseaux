@@ -1,47 +1,38 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// This now imports the object containing the "levels" array
-import dictionary from '../data/words.json';
+import practiceRules from '../data/practiceRules.json';
+import wordBank from '../data/wordBank.json';
 
 export default function PronunciationApp() {
-  // 1. State for the current level (defaulting to the first one)
-  const [levelIndex, setLevelIndex] = useState(0);
-  // 2. State for the word index within that level
-  const [wordIndex, setWordIndex] = useState(0);
+  // 1. Level state
+  const [levelIdx, setLevelIdx] = useState(0);
+  const [wordIdx, setWordIdx] = useState(0);
 
-  const currentLevel = dictionary.levels[levelIndex];
-  const currentWord = currentLevel.words[wordIndex];
+  const currentRule = practiceRules[levelIdx];
+
+  // 2. Filter the word bank to only show words relevant to this level
+  // We use useMemo (like a cached view in SQL) so it doesn't re-run every render
+  const activeWords = useMemo(() => {
+    return wordBank.filter(item => 
+      currentRule.target_sounds.includes(item.target_ipa)
+    );
+  }, [levelIdx]); // Only re-filter when the level changes
+
+  const currentWord = activeWords[wordIdx];
 
   const handlePress = (choice) => {
-    if (choice === currentWord.ipa) {
-      // SUCCESS!
-      const isLastWord = wordIndex === currentLevel.words.length - 1;
-
-      if (isLastWord) {
-        Alert.alert(
-          "Level Complete!", 
-          `You finished ${currentLevel.title}!`,
-          [{ text: "Restart Level", onPress: () => setWordIndex(0) }]
-        );
-      } else {
-        setWordIndex((prev) => prev + 1);
-      }
+    if (choice === currentWord.target_ipa) {
+      // Success: Go to next word in the filtered list
+      setWordIdx((prev) => (prev + 1) % activeWords.length);
     } else {
-      alert("Wrong sound, try again!");
+      alert(`Wrong! In "${currentWord.word}", the sound is ${currentWord.target_ipa}`);
     }
   };
 
-  if (!currentWord) return <Text>Loading...</Text>;
-
   return (
     <View style={styles.container}>
-      {/* Show the Level Title */}
-      <Text style={styles.levelTitle}>{currentLevel.title}</Text>
-      
-      <Text style={styles.counter}>
-        Word {wordIndex + 1} of {currentLevel.words.length}
-      </Text>
+      <Text style={styles.levelTitle}>{currentRule.title}</Text>
       
       <View style={styles.wordContainer}>
         {currentWord.segments.map((s, i) => (
@@ -52,56 +43,40 @@ export default function PronunciationApp() {
       </View>
 
       <View style={styles.optionsGrid}>
-        {/* We use a Set or a hardcoded list of IPA buttons here, 
-            or pull from a global list to keep UI consistent */}
-        {["/e/", "/ɛ/", "/a/", "/y/", "/u/", "/ɑ̃/", "/ɛ̃/"].map((opt) => (
-          <TouchableOpacity 
-            key={opt} 
-            style={styles.btn} 
-            onPress={() => handlePress(opt)}
-          >
+        {/* Only show the buttons defined for this specific sound struggle */}
+        {currentRule.option_buttons.map((opt) => (
+          <TouchableOpacity key={opt} style={styles.btn} onPress={() => handlePress(opt)}>
             <Text style={styles.btnText}>{opt}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* Button to switch levels manually for testing */}
-      <TouchableOpacity 
-        style={styles.switchBtn} 
-        onPress={() => {
-            setLevelIndex((levelIndex + 1) % dictionary.levels.length);
-            setWordIndex(0);
-        }}
-      >
-        <Text>Next Level →</Text>
-      </TouchableOpacity>
+      {/* Level Selector Interface */}
+      <View style={styles.footer}>
+        {practiceRules.map((rule, idx) => (
+          <TouchableOpacity 
+            key={rule.id} 
+            onPress={() => { setLevelIdx(idx); setWordIdx(0); }}
+            style={[styles.smallBtn, levelIdx === idx && styles.activeLevel]}
+          >
+            <Text>{rule.id}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
 
-// ... styles below ...
-
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F5F7FA', alignItems: 'center', justifyContent: 'center', padding: 20 },
-  counter: { position: 'absolute', top: 60, fontSize: 14, color: '#666' },
-  instruction: { fontSize: 18, color: '#444', marginBottom: 20 },
-  wordContainer: { flexDirection: 'row', marginBottom: 60, backgroundColor: '#fff', padding: 20, borderRadius: 20, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4 },
-  wordText: { fontSize: 56, fontWeight: '300' },
-  underlined: { textDecorationLine: 'underline', color: '#007AFF', fontWeight: 'bold' },
-  optionsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', width: '100%' },
-  btn: { backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 30, margin: 10, borderRadius: 16, minWidth: 100, alignItems: 'center', borderWidth: 1, borderColor: '#DDD' },
-  btnText: { fontSize: 28, color: '#333' },
-  levelTitle: { 
-    position: 'absolute', 
-    top: 80, 
-    fontSize: 22, 
-    fontWeight: 'bold', 
-    color: '#007AFF' 
-  },
-  switchBtn: {
-    marginTop: 30,
-    padding: 10,
-    backgroundColor: '#EEE',
-    borderRadius: 8
-  },
+  container: { flex: 1, backgroundColor: '#F5F7FA', alignItems: 'center', justifyContent: 'center' },
+  levelTitle: { fontSize: 22, fontWeight: 'bold', position: 'absolute', top: 70 },
+  wordContainer: { flexDirection: 'row', marginBottom: 50 },
+  wordText: { fontSize: 50 },
+  underlined: { textDecorationLine: 'underline', color: '#007AFF' },
+  optionsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+  btn: { backgroundColor: '#fff', padding: 20, margin: 10, borderRadius: 15, minWidth: 80, alignItems: 'center', borderWidth: 1, borderColor: '#ccc' },
+  btnText: { fontSize: 30 },
+  footer: { flexDirection: 'row', position: 'absolute', bottom: 40 },
+  smallBtn: { padding: 10, margin: 5, backgroundColor: '#ddd', borderRadius: 5 },
+  activeLevel: { backgroundColor: '#007AFF' }
 });
