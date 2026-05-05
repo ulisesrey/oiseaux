@@ -48,3 +48,22 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+# Motivation
+Help French students improve thei pronunciation.
+
+## Resources:
+
+Database of french words, can be downloaded.
+http://www.lexique.org/
+Info: https://openlexicon.fr/datasets-info/
+
+
+Guia de pronunciacion de Duolingo:
+https://blog.duolingo.com/es/tips-de-pronunciacion-del-frances/
+
+
+Video with a guide on how to pronounce french:
+https://www.youtube.com/watch?v=dbyKzUM9H5c
+
