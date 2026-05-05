@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "display": "garçon",
+    "segments": [
+      { "text": "garç", "underline": false },
+      { "text": "o", "underline": true },
+      { "text": "n", "underline": false }
+    ],
+    "correct_ipa": "/ɔ̃/",
+    "options": ["/ɔ̃/", "/ɑ̃/", "/ɛ̃/"],
+    "audio": "garcon" 
+  },
+  {
+    "id": 2,
+    "display": "château",
+    "segments": [
+      { "text": "chât", "underline": false },
+      { "text": "eau", "underline": true }
+    ],
+    "correct_ipa": "/o/",
+    "options": ["/o/", "/u/", "/y/"],
+    "audio": "chateau"
+  }
+]
