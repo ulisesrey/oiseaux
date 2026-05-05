@@ -1,52 +1,60 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Make sure your path to the JSON is correct!
-import quizData from '../data/words.json';
+// This now imports the object containing the "levels" array
+import dictionary from '../data/words.json';
 
 export default function PronunciationApp() {
-  const [index, setIndex] = useState(0);
-  const current = quizData[index];
+  // 1. State for the current level (defaulting to the first one)
+  const [levelIndex, setLevelIndex] = useState(0);
+  // 2. State for the word index within that level
+  const [wordIndex, setWordIndex] = useState(0);
+
+  const currentLevel = dictionary.levels[levelIndex];
+  const currentWord = currentLevel.words[wordIndex];
 
   const handlePress = (choice) => {
-      console.log("User selected:", choice);
-      
-      if (choice === current.correct_ipa) {
-        console.log("SUCCESS! Moving to next...");
-        
-        // Use a functional update to ensure we have the latest state
-        setIndex((prevIndex) => {
-          const next = (prevIndex + 1) % quizData.length;
-          return next;
-        });
+    if (choice === currentWord.ipa) {
+      // SUCCESS!
+      const isLastWord = wordIndex === currentLevel.words.length - 1;
 
-        // Optional: Standard browser alert just for feedback
-        // alert("Correct!"); 
+      if (isLastWord) {
+        Alert.alert(
+          "Level Complete!", 
+          `You finished ${currentLevel.title}!`,
+          [{ text: "Restart Level", onPress: () => setWordIndex(0) }]
+        );
       } else {
-        console.log("FAIL: Try again");
-        alert("Wrong sound, try again!");
+        setWordIndex((prev) => prev + 1);
       }
-    };
+    } else {
+      alert("Wrong sound, try again!");
+    }
+  };
 
-  // Guard clause in case data fails to load
-  if (!current) return <Text>Loading data...</Text>;
+  if (!currentWord) return <Text>Loading...</Text>;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.counter}>Word {index + 1} of {quizData.length}</Text>
+      {/* Show the Level Title */}
+      <Text style={styles.levelTitle}>{currentLevel.title}</Text>
+      
+      <Text style={styles.counter}>
+        Word {wordIndex + 1} of {currentLevel.words.length}
+      </Text>
       
       <View style={styles.wordContainer}>
-        {current.segments.map((s, i) => (
+        {currentWord.segments.map((s, i) => (
           <Text key={i} style={[styles.wordText, s.underline && styles.underlined]}>
             {s.text}
           </Text>
         ))}
       </View>
 
-      <Text style={styles.instruction}>Select the correct IPA sound:</Text>
-
       <View style={styles.optionsGrid}>
-        {current.options.map((opt) => (
+        {/* We use a Set or a hardcoded list of IPA buttons here, 
+            or pull from a global list to keep UI consistent */}
+        {["/e/", "/ɛ/", "/a/", "/y/", "/u/", "/ɑ̃/", "/ɛ̃/"].map((opt) => (
           <TouchableOpacity 
             key={opt} 
             style={styles.btn} 
@@ -56,9 +64,22 @@ export default function PronunciationApp() {
           </TouchableOpacity>
         ))}
       </View>
+
+      {/* Button to switch levels manually for testing */}
+      <TouchableOpacity 
+        style={styles.switchBtn} 
+        onPress={() => {
+            setLevelIndex((levelIndex + 1) % dictionary.levels.length);
+            setWordIndex(0);
+        }}
+      >
+        <Text>Next Level →</Text>
+      </TouchableOpacity>
     </View>
   );
 }
+
+// ... styles below ...
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F5F7FA', alignItems: 'center', justifyContent: 'center', padding: 20 },
@@ -69,5 +90,18 @@ const styles = StyleSheet.create({
   underlined: { textDecorationLine: 'underline', color: '#007AFF', fontWeight: 'bold' },
   optionsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', width: '100%' },
   btn: { backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 30, margin: 10, borderRadius: 16, minWidth: 100, alignItems: 'center', borderWidth: 1, borderColor: '#DDD' },
-  btnText: { fontSize: 28, color: '#333' }
+  btnText: { fontSize: 28, color: '#333' },
+  levelTitle: { 
+    position: 'absolute', 
+    top: 80, 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    color: '#007AFF' 
+  },
+  switchBtn: {
+    marginTop: 30,
+    padding: 10,
+    backgroundColor: '#EEE',
+    borderRadius: 8
+  },
 });
