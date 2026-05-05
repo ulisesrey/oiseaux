@@ -1,0 +1,34 @@
+# Variables
+BUILD_PROFILE = production
+PLATFORM = android
+BUILD_COMMAND = eas build --profile $(BUILD_PROFILE) --platform $(PLATFORM) --local
+
+# Default action when you just type 'make'
+all: help
+
+## help: Show this help message
+help:
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Targets:"
+	@sed -n 's/^##//p' Makefile
+
+## install: Install project dependencies
+install:
+	npm install
+
+## build: Run a local EAS production build for Android
+build:
+	@echo "Starting local $(BUILD_PROFILE) build for $(PLATFORM)..."
+	$(BUILD_COMMAND)
+
+## clean: Remove the local build artifacts (APKs/AABs)
+clean:
+	rm -rf *.apk *.aab
+	@echo "Cleaned local build files."
+
+## dev: Run the development server
+dev:
+	npx expo start
+
+.PHONY: all help install build clean dev
