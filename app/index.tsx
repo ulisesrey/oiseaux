@@ -21,6 +21,18 @@ export default function PronunciationApp() {
 
   const currentWord = activeWords[wordIdx];
 
+  if (!currentWord) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.levelTitle}>{currentRule.title}</Text>
+        <Text>No words found for this level yet!</Text>
+        <TouchableOpacity onPress={() => setLevelIdx(0)} style={styles.btn}>
+          <Text>Go Back</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   const handlePress = (choice) => {
     if (choice === currentWord.target_ipa) {
       // Success: Go to next word in the filtered list
