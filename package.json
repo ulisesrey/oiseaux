@@ -1,5 +1,5 @@
 {
-  "name": "myfrenchapp",
+  "name": "oiseaux",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "predeploy": "npx expo export -p web",
-    "deploy": "npx gh-pages -d dist"
+    "deploy": "npx gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
