@@ -128,7 +128,7 @@
   { "word": "menu", "target_ipa": "/y/", "underlined_indices": [3, 4] },
   { "word": "salut", "target_ipa": "/y/", "underlined_indices": [3, 5] },
   { "word": "sûr", "target_ipa": "/y/", "underlined_indices": [1, 2] },
-  { "word": "plus", "target_ipa": "/y/", "underlined_indices": [2, 3] },
+  { "word": "plus", "target_ipa": "/y/", "underlined_indices": [2, 3] }, // this word can be pronounced different
 
 
   /* --- S vs SS (The /s/ vs /z/ vibration) --- */
