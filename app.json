@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myfrenchapp",
+    "scheme": "oiseaux",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -15,10 +15,8 @@
     "android": {
       "package": "com.ulises.oiseaux",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/images/adaptive-icon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
@@ -49,8 +47,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "acbf84f5-0f6a-4fff-aeab-8d9b11966b4d"
+        "projectId": "a37195dc-517c-4e1d-8c34-c1dd55cc49b9"
       }
-    }
+    },
+    "owner": "ulisesrey"
   }
 }
