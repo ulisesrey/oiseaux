@@ -24,12 +24,21 @@ make build-android
 
 ### 3. Web Deployment (GitHub Pages)
 
-Oiseaux is hosted live as a Static Site.
+Oiseaux is hosted live as a **static site**.
 
-How it works: 
-1.  Export: The app is "transpiled" into standard HTML/JS/CSS files in a /dist folder.
-2.  The .nojekyll Trick: An empty .nojekyll file is added to prevent GitHub from hiding folders starting with underscores (like _expo).
-3.  The gh-pages Branch: The content of /dist is pushed to a separate, isolated branch called gh-pages. GitHub detects this branch and hosts it at your public URL.
+### How it works
+
+1. **Export**  
+   The app is transpiled into standard HTML/JS/CSS files in a `/dist` folder.
+
+2. **.nojekyll trick**  
+   An empty `.nojekyll` file is added to prevent GitHub from hiding folders that start with underscores (like `_expo`).
+
+3. **gh-pages branch**  
+   The contents of `/dist` are pushed to a separate, isolated branch called `gh-pages`.  
+   GitHub detects this branch and hosts it at your public URL.
+
+### Command
 
 ```bash
 make deploy-web
@@ -41,16 +50,13 @@ The drawback of this is that the repository has to be public.
 
 ## 🛠 Project Structure
 
-    app/: The core logic and screens (File-based routing).
+- **app/**: The core logic and screens (file-based routing)
+- **assets/**: Images, icons, and splash screens
+- **data/**: JSON files containing the `wordBank` and `practiceRules` (the "Data Science" layer)
+- **Makefile**: The master controller for all deployment tasks
 
-    assets/: Images, icons, and splash screens.
-
-    data/: JSON files containing the wordBank and practiceRules (The "Data Science" layer).
-
-    Makefile: The master controller for all deployment tasks.
 ## 🌍 Availability
 
-    Web: https://ulisesrey.github.io/oiseaux/
-
-    Android: Download the latest .apk from the releases/builds folder.
+- **Web**: https://ulisesrey.github.io/oiseaux/
+- **Android**: Download the latest `.apk` from the releases/builds folder
 
