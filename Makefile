@@ -1,5 +1,5 @@
 # Variables
-BUILD_PROFILE = production
+BUILD_PROFILE = preview # reads from eas.json build "profiles"
 PLATFORM = android
 BUILD_COMMAND = eas build --profile $(BUILD_PROFILE) --platform $(PLATFORM) --local
 
