@@ -16,8 +16,8 @@ help:
 install:
 	npm install
 
-## build-android: Run a local EAS production build for Android
-build-android:
+## build: Run a local EAS production build
+build:
 	@echo "Starting local $(BUILD_PROFILE) build for $(PLATFORM)..."
 	eas build --profile $(BUILD_PROFILE) --platform $(PLATFORM) --local
 
@@ -36,4 +36,4 @@ clean:
 dev:
 	npx expo start
 
-.PHONY: all help install build-android deploy-web clean dev
+.PHONY: all help install build deploy-web clean dev
