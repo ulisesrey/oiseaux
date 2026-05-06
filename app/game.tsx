@@ -81,7 +81,7 @@ export default function GameScreen() {
         <Text style={styles.successEmoji}>🎉</Text>
         <Text style={styles.menuTitle}>Niveau Terminé !</Text>
         <Text style={styles.successSubtitle}>
-          Bravo ! Vous avez terminé votre session de 10 mots.
+          Bravo ! Vous avez terminé votre session de {WORDS_PER_SESSION} mots.
         </Text>
         
         <TouchableOpacity style={styles.btn} onPress={() => router.replace("/")}>
