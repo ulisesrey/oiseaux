@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyFrenchApp",
-    "slug": "MyFrenchApp",
+    "name": "Oiseaux",
+    "slug": "Oiseaux",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,10 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ulises.myfrenchapp"
+      "bundleIdentifier": "com.ulises.oiseaux"
     },
     "android": {
-      "package": "com.ulises.myfrenchapp",
+      "package": "com.ulises.oiseaux",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
