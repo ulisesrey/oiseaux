@@ -28,11 +28,5 @@
     "title": "S vs SS (The Z-Vibration)",
     "target_sounds": ["/s/", "/z/"],
     "option_buttons": ["/s/", "/z/"]
-  },
-  {
-    "id": "schwa_vs_eu",
-    "title": "The 'E' vs 'EU'",
-    "target_sounds": ["/ə/", "/ø/", "/œ/"],
-    "option_buttons": ["/ə/", "/ø/", "/œ/"]
   }
 ]

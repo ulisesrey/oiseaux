@@ -6,31 +6,130 @@
   { "word": "roue", "target_ipa": "/u/", "underlined_indices": [1, 4] },
   { "word": "jus", "target_ipa": "/y/", "underlined_indices": [1, 2] },
   { "word": "joue", "target_ipa": "/u/", "underlined_indices": [1, 4] },
+  { "word": "bu", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "su", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "mur", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "lune", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "plus", "target_ipa": "/y/", "underlined_indices": [2, 3] },
+  { "word": "nature", "target_ipa": "/y/", "underlined_indices": [4, 5] },
+  { "word": "pur", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "vue", "target_ipa": "/y/", "underlined_indices": [1, 3] },
+  { "word": "sur", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "lute", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "boue", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "sou", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "mourir", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "loup", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "poule", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "nouveaux", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "pour", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "vous", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "souris", "target_ipa": "/u/", "underlined_indices": [1, 3] },
+  { "word": "lourd", "target_ipa": "/u/", "underlined_indices": [1, 3] },
 
   /* --- The "E" Spectrum --- */
+
+  /* --- Sound: /e/ (Closed, like "Café") --- */
   { "word": "café", "target_ipa": "/e/", "underlined_indices": [3, 4] },
-  { "word": "merci", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
-  { "word": "chat", "target_ipa": "/a/", "underlined_indices": [2, 4] },
   { "word": "parler", "target_ipa": "/e/", "underlined_indices": [4, 6] },
-  { "word": "fête", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
+  { "word": "manger", "target_ipa": "/e/", "underlined_indices": [4, 6] },
+  { "word": "été", "target_ipa": "/e/", "underlined_indices": [0, 1] },
+  { "word": "allez", "target_ipa": "/e/", "underlined_indices": [3, 5] },
+  { "word": "clé", "target_ipa": "/e/", "underlined_indices": [2, 3] },
+  { "word": "donner", "target_ipa": "/e/", "underlined_indices": [4, 6] },
+  { "word": "nez", "target_ipa": "/e/", "underlined_indices": [1, 3] },
+  { "word": "beauté", "target_ipa": "/e/", "underlined_indices": [5, 6] },
+  { "word": "thé", "target_ipa": "/e/", "underlined_indices": [2, 3] },
+
+  /* --- Sound: /ɛ/ (Open, like "Merci") --- */
+  { "word": "merci", "target_ipa": "/ɛ/", "underlined_indices": [1, 2] },
+  { "word": "fête", "target_ipa": "/ɛ/", "underlined_indices": [1, 2] },
   { "word": "neige", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
+  { "word": "lait", "target_ipa": "/ɛ/", "underlined_indices": [2, 4] },
+  { "word": "père", "target_ipa": "/ɛ/", "underlined_indices": [1, 2] },
+  { "word": "maison", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
+  { "word": "tête", "target_ipa": "/ɛ/", "underlined_indices": [1, 2] },
+  { "word": "belle", "target_ipa": "/ɛ/", "underlined_indices": [1, 2] },
+  { "word": "vrai", "target_ipa": "/ɛ/", "underlined_indices": [2, 4] },
+  { "word": "sept", "target_ipa": "/ɛ/", "underlined_indices": [1, 2] },
+
+  /* --- Sound: /a/ (Wide Open, like "Chat") --- */
+  { "word": "chat", "target_ipa": "/a/", "underlined_indices": [2, 3] },
+  { "word": "papa", "target_ipa": "/a/", "underlined_indices": [3, 4] },
+  { "word": "sac", "target_ipa": "/a/", "underlined_indices": [1, 2] },
+  { "word": "table", "target_ipa": "/a/", "underlined_indices": [1, 2] },
+  { "word": "voilà", "target_ipa": "/a/", "underlined_indices": [4, 5] },
+  { "word": "ami", "target_ipa": "/a/", "underlined_indices": [0, 1] },
+  { "word": "banane", "target_ipa": "/a/", "underlined_indices": [1, 2] },
+  { "word": "rat", "target_ipa": "/a/", "underlined_indices": [1, 2] },
+  { "word": "salade", "target_ipa": "/a/", "underlined_indices": [1, 2] },
+  { "word": "gare", "target_ipa": "/a/", "underlined_indices": [1, 2] },
+
 
   /* --- The Nasals --- */
-  { "word": "enfant", "target_ipa": "/ɑ̃/", "underlined_indices": [3, 6] },
+  /* --- Sound: /ɛ̃/ (Smiling Nasal - 'in', 'im', 'ain', 'ein', 'un') --- */
   { "word": "vin", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 3] },
-  { "word": "bonbon", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 3] },
   { "word": "main", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 4] },
-  { "word": "temps", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 5] },
-  { "word": "maison", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] },
   { "word": "faim", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 4] },
+  { "word": "train", "target_ipa": "/ɛ̃/", "underlined_indices": [2, 5] },
+  { "word": "lapin", "target_ipa": "/ɛ̃/", "underlined_indices": [3, 5] },
+  { "word": "peintre", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 4] },
+  { "word": "timbre", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 3] },
+  { "word": "un", "target_ipa": "/ɛ̃/", "underlined_indices": [0, 2] },
+  { "word": "brun", "target_ipa": "/ɛ̃/", "underlined_indices": [2, 4] },
+  { "word": "plein", "target_ipa": "/ɛ̃/", "underlined_indices": [2, 5] },
+
+  /* --- Sound: /ɑ̃/ (Yawning Nasal - 'an', 'am', 'en', 'em') --- */
+  { "word": "enfant", "target_ipa": "/ɑ̃/", "underlined_indices": [3, 6] },
+  { "word": "temps", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 5] },
+  { "word": "maman", "target_ipa": "/ɑ̃/", "underlined_indices": [3, 5] },
+  { "word": "blanc", "target_ipa": "/ɑ̃/", "underlined_indices": [2, 5] },
+  { "word": "dent", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 4] },
+  { "word": "chambre", "target_ipa": "/ɑ̃/", "underlined_indices": [2, 4] },
+  { "word": "vent", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 4] },
+  { "word": "banque", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 3] },
+  { "word": "manger", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 3] },
+  { "word": "souvent", "target_ipa": "/ɑ̃/", "underlined_indices": [4, 7] },
+
+  /* --- Sound: /ɔ̃/ (O-Nasal - 'on', 'om') --- */
+  { "word": "bonbon", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 3] },
+  { "word": "maison", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] },
+  { "word": "ballon", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] },
+  { "word": "nom", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 3] },
+  { "word": "pont", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 4] },
+  { "word": "lion", "target_ipa": "/ɔ̃/", "underlined_indices": [2, 4] },
+  { "word": "long", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 4] },
+  { "word": "garçon", "target_ipa": "/ɔ̃/", "underlined_indices": [5, 7] },
+  { "word": "ombre", "target_ipa": "/ɔ̃/", "underlined_indices": [0, 2] },
+  { "word": "mouton", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] }
+
 
   /* --- The High Vowels (I vs Y) --- */
+
+  /* --- Sound: /i/ (Smiling high vowel) --- */
   { "word": "lit", "target_ipa": "/i/", "underlined_indices": [1, 2] },
-  { "word": "lu", "target_ipa": "/y/", "underlined_indices": [1, 2] },
   { "word": "si", "target_ipa": "/i/", "underlined_indices": [1, 2] },
-  { "word": "su", "target_ipa": "/y/", "underlined_indices": [1, 2] },
   { "word": "vie", "target_ipa": "/i/", "underlined_indices": [1, 3] },
+  { "word": "dit", "target_ipa": "/i/", "underlined_indices": [1, 3] },
+  { "word": "piste", "target_ipa": "/i/", "underlined_indices": [1, 2] },
+  { "word": "riz", "target_ipa": "/i/", "underlined_indices": [1, 3] },
+  { "word": "midi", "target_ipa": "/i/", "underlined_indices": [3, 4] },
+  { "word": "petit", "target_ipa": "/i/", "underlined_indices": [3, 5] },
+  { "word": "île", "target_ipa": "/i/", "underlined_indices": [0, 1] },
+  { "word": "amis", "target_ipa": "/i/", "underlined_indices": [2, 4] },
+
+  /* --- Sound: /y/ (Rounded high vowel) --- */
+  { "word": "lu", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "su", "target_ipa": "/y/", "underlined_indices": [1, 2] },
   { "word": "vue", "target_ipa": "/y/", "underlined_indices": [1, 3] },
+  { "word": "du", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "puce", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "rue", "target_ipa": "/y/", "underlined_indices": [1, 3] },
+  { "word": "menu", "target_ipa": "/y/", "underlined_indices": [3, 4] },
+  { "word": "salut", "target_ipa": "/y/", "underlined_indices": [3, 5] },
+  { "word": "sûr", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "plus", "target_ipa": "/y/", "underlined_indices": [2, 3] }
+
 
   /* --- S vs SS (The /s/ vs /z/ vibration) --- */
   { "word": "poisson", "target_ipa": "/s/", "underlined_indices": [3, 5] },
@@ -41,15 +140,37 @@
   { "word": "valise", "target_ipa": "/z/", "underlined_indices": [4, 5] },
 
   /* --- The Rounded E Spectrum (/ø/ vs /œ/) --- */
+  /* --- Sound: /ø/ (Closed Rounded E - Mouth more closed, like "Peu") --- */
   { "word": "peu", "target_ipa": "/ø/", "underlined_indices": [1, 3] },
-  { "word": "peur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
   { "word": "deux", "target_ipa": "/ø/", "underlined_indices": [1, 4] },
-  { "word": "fleur", "target_ipa": "/œ/", "underlined_indices": [2, 5] },
   { "word": "bleu", "target_ipa": "/ø/", "underlined_indices": [2, 4] },
-  { "word": "sœur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "jeu", "target_ipa": "/ø/", "underlined_indices": [1, 3] },
+  { "word": "feu", "target_ipa": "/ø/", "underlined_indices": [1, 3] },
+  { "word": "vœux", "target_ipa": "/ø/", "underlined_indices": [1, 4] },
+  { "word": "queue", "target_ipa": "/ø/", "underlined_indices": [1, 5] },
+  { "word": "mieux", "target_ipa": "/ø/", "underlined_indices": [2, 5] },
+  { "word": "cheveux", "target_ipa": "/ø/", "underlined_indices": [4, 7] },
+  { "word": "heureux", "target_ipa": "/ø/", "underlined_indices": [4, 7] },
+  { "word": "jeûne", "target_ipa": "/ø/", "underlined_indices": [1, 3] },
+  { "word": "œufs", "target_ipa": "/ø/", "underlined_indices": [0, 3] },
+  { "word": "nœud", "target_ipa": "/ø/", "underlined_indices": [1, 3] },
+  { "word": "ceux", "target_ipa": "/ø/", "underlined_indices": [1, 4] },
+  { "word": "pieu", "target_ipa": "/ø/", "underlined_indices": [1, 4] },
 
-  /* --- Schwa and Mixed --- */
-  { "word": "le", "target_ipa": "/ə/", "underlined_indices": [1, 2] },
-  { "word": "petit", "target_ipa": "/ə/", "underlined_indices": [1, 2] },
-  { "word": "oignon", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] }
+  /* --- Sound: /œ/ (Open Rounded E - Mouth drops open, like "Peur") --- */
+  { "word": "peur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "fleur", "target_ipa": "/œ/", "underlined_indices": [2, 5] },
+  { "word": "sœur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "cœur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "beurre", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "jeune", "target_ipa": "/œ/", "underlined_indices": [1, 3] },
+  { "word": "heure", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "fleuve", "target_ipa": "/œ/", "underlined_indices": [2, 5] },
+  { "word": "œuf", "target_ipa": "/œ/", "underlined_indices": [0, 3] },
+  { "word": "œil", "target_ipa": "/œ/", "underlined_indices": [0, 2] },
+  { "word": "seul", "target_ipa": "/œ/", "underlined_indices": [1, 3] },
+  { "word": "œuvre", "target_ipa": "/œ/", "underlined_indices": [0, 3] },
+  { "word": "professeur", "target_ipa": "/œ/", "underlined_indices": [7, 10] },
+  { "word": "facteur", "target_ipa": "/œ/", "underlined_indices": [4, 7] },
+  { "word": "couleur", "target_ipa": "/œ/", "underlined_indices": [4, 7] }
 ]
