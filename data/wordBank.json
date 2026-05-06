@@ -101,7 +101,7 @@
   { "word": "long", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 4] },
   { "word": "garçon", "target_ipa": "/ɔ̃/", "underlined_indices": [5, 7] },
   { "word": "ombre", "target_ipa": "/ɔ̃/", "underlined_indices": [0, 2] },
-  { "word": "mouton", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] }
+  { "word": "mouton", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] },
 
 
   /* --- The High Vowels (I vs Y) --- */
@@ -128,7 +128,7 @@
   { "word": "menu", "target_ipa": "/y/", "underlined_indices": [3, 4] },
   { "word": "salut", "target_ipa": "/y/", "underlined_indices": [3, 5] },
   { "word": "sûr", "target_ipa": "/y/", "underlined_indices": [1, 2] },
-  { "word": "plus", "target_ipa": "/y/", "underlined_indices": [2, 3] }
+  { "word": "plus", "target_ipa": "/y/", "underlined_indices": [2, 3] },
 
 
   /* --- S vs SS (The /s/ vs /z/ vibration) --- */
