@@ -7,7 +7,7 @@ import wordBank from '../data/wordBank.json';
 import { theme as styles } from '../styles/theme';
 
 // 1. SET THE LIMIT HERE
-const WORDS_PER_SESSION = 10;
+const WORDS_PER_SESSION = 5;
 
 const shuffle = (array) => {
   let currentIndex = array.length, randomIndex;
