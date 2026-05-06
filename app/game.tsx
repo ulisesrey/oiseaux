@@ -1,6 +1,7 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { ArrowLeft } from 'lucide-react-native';
 import React, { useMemo, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 import { theme as styles } from '../styles/theme';
@@ -8,7 +9,7 @@ import { theme as styles } from '../styles/theme';
 // --- Fisher-Yates Shuffle Helper ---
 const shuffle = (array) => {
   let currentIndex = array.length, randomIndex;
-  const newArray = [...array]; // Don't mutate the original
+  const newArray = [...array]; 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
@@ -40,7 +41,6 @@ export default function GameScreen() {
 
   const currentRule = practiceRules[currentLevelIdx];
 
-  // SHUFFLE logic inside useMemo
   const shuffledWords = useMemo(() => {
     const filtered = wordBank.filter(item => 
       currentRule.target_sounds.includes(item.target_ipa)
@@ -62,7 +62,7 @@ export default function GameScreen() {
           setWordIdx(prev => prev + 1);
           setFeedback({ choice: null, correct: null });
         } else {
-          setIsFinished(true); // TRIGGER COMPLETION
+          setIsFinished(true); 
         }
       }, 600);
     } else {
@@ -70,7 +70,6 @@ export default function GameScreen() {
     }
   };
 
-  // --- 1. COMPLETION SCREEN ---
   if (isFinished) {
     return (
       <View style={styles.container}>
@@ -87,9 +86,17 @@ export default function GameScreen() {
     );
   }
 
-  // --- 2. GAME SCREEN ---
   return (
     <View style={styles.container}>
+      {/* 1. HIDE DEFAULT HEADER */}
+      <Stack.Screen options={{ headerShown: false }} />
+
+      {/* 2. CUSTOM SVG BACK BUTTON */}
+      <View style={localStyles.header}>
+        <TouchableOpacity onPress={() => router.back()} style={localStyles.backButton}>
+          <ArrowLeft color="#2c3e50" size={32} />
+        </TouchableOpacity>
+      </View>
 
       <Text style={styles.counterText}>
         Mots: {wordIdx + 1} / {shuffledWords.length}
@@ -119,3 +126,17 @@ export default function GameScreen() {
     </View>
   );
 }
+
+const localStyles = StyleSheet.create({
+  header: {
+    width: '100%',
+    position: 'absolute',
+    top: 40, // Adjusted for status bar clearance
+    left: 0,
+    zIndex: 10,
+    paddingLeft: 10,
+  },
+  backButton: {
+    padding: 10,
+  }
+});
