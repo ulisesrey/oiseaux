@@ -51,7 +51,7 @@ export const theme = StyleSheet.create({
   smallBtn: { padding: 8, margin: 4, backgroundColor: '#E1E4E8', borderRadius: 10 },
   smallBtnText: { fontSize: 12, fontWeight: 'bold', color: '#666' },
   activeLevel: { backgroundColor: '#007AFF' },
-  
+
   // Add these to your existing theme.ts
   menuTitle: { fontSize: 28, fontWeight: 'bold', marginVertical: 40, color: '#1A1A1A' },
   menuGrid: { width: '100%', paddingHorizontal: 10 },
@@ -79,5 +79,21 @@ export const theme = StyleSheet.create({
   },
   backButton: { position: 'absolute', top: 60, left: 20, padding: 10 },
   backButtonText: { fontSize: 18, color: '#007AFF', fontWeight: '600' },
-  gameLevelTitle: { fontSize: 20, fontWeight: '600', position: 'absolute', top: 110, color: '#666' }
+  gameLevelTitle: { fontSize: 20, fontWeight: '600', position: 'absolute', top: 110, color: '#666' },
+  // Success emoji
+  successEmoji: { fontSize: 80, marginBottom: 20 },
+  successSubtitle: { 
+    fontSize: 18, 
+    color: '#666', 
+    textAlign: 'center', 
+    marginBottom: 40,
+    paddingHorizontal: 30 
+  },
+  counterText: {
+    position: 'absolute',
+    top: 140,
+    fontSize: 14,
+    color: '#999',
+    fontWeight: 'bold'
+  }
 });

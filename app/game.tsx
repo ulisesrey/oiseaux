@@ -5,6 +5,18 @@ import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 import { theme as styles } from '../styles/theme';
 
+// --- Fisher-Yates Shuffle Helper ---
+const shuffle = (array) => {
+  let currentIndex = array.length, randomIndex;
+  const newArray = [...array]; // Don't mutate the original
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [newArray[currentIndex], newArray[randomIndex]] = [newArray[randomIndex], newArray[currentIndex]];
+  }
+  return newArray;
+};
+
 const renderWord = (word, indices) => {
   if (!indices || indices.length < 2) return <Text style={styles.wordText}>{word}</Text>;
   const [start, end] = indices;
@@ -19,41 +31,72 @@ const renderWord = (word, indices) => {
 
 export default function GameScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams();
-  const levelIdx = parseInt(params.levelIdx as string) || 0;
+  const { levelIdx } = useLocalSearchParams();
+  const currentLevelIdx = parseInt(levelIdx as string) || 0;
 
   const [wordIdx, setWordIdx] = useState(0);
   const [feedback, setFeedback] = useState({ choice: null, correct: null });
+  const [isFinished, setIsFinished] = useState(false);
 
-  const currentRule = practiceRules[levelIdx];
-  const activeWords = useMemo(() => {
-    return wordBank.filter(item => currentRule.target_sounds.includes(item.target_ipa));
-  }, [levelIdx]);
+  const currentRule = practiceRules[currentLevelIdx];
 
-  const currentWord = activeWords[wordIdx];
+  // SHUFFLE logic inside useMemo
+  const shuffledWords = useMemo(() => {
+    const filtered = wordBank.filter(item => 
+      currentRule.target_sounds.includes(item.target_ipa)
+    );
+    return shuffle(filtered);
+  }, [currentLevelIdx]);
+
+  const currentWord = shuffledWords[wordIdx];
 
   const handlePress = (choice) => {
-    if (feedback.choice) return;
+    if (feedback.choice || isFinished) return;
+
     const correct = choice === currentWord.target_ipa;
     setFeedback({ choice, correct });
 
     if (correct) {
       setTimeout(() => {
-        setWordIdx((prev) => (prev + 1) % activeWords.length);
-        setFeedback({ choice: null, correct: null });
+        if (wordIdx + 1 < shuffledWords.length) {
+          setWordIdx(prev => prev + 1);
+          setFeedback({ choice: null, correct: null });
+        } else {
+          setIsFinished(true); // TRIGGER COMPLETION
+        }
       }, 600);
     } else {
       setTimeout(() => setFeedback({ choice: null, correct: null }), 1000);
     }
   };
 
+  // --- 1. COMPLETION SCREEN ---
+  if (isFinished) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.successEmoji}>🎉</Text>
+        <Text style={styles.menuTitle}>Niveau Terminé !</Text>
+        <Text style={styles.successSubtitle}>
+          Vous avez maîtrisé {shuffledWords.length} mots de "{currentRule.title}"
+        </Text>
+        
+        <TouchableOpacity style={styles.btn} onPress={() => router.replace("/")}>
+          <Text style={styles.btnText}>Retour au menu</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  // --- 2. GAME SCREEN ---
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Text style={styles.backButtonText}>← Retour</Text>
+        <Text style={styles.backButtonText}>← Quitter</Text>
       </TouchableOpacity>
 
-      <Text style={styles.gameLevelTitle}>{currentRule.title}</Text>
+      <Text style={styles.counterText}>
+        Mots: {wordIdx + 1} / {shuffledWords.length}
+      </Text>
 
       <View style={styles.wordContainer}>
         {renderWord(currentWord.word, currentWord.underlined_indices)}
@@ -65,7 +108,10 @@ export default function GameScreen() {
           return (
             <TouchableOpacity 
               key={opt} 
-              style={[styles.btn, isCurrentChoice && (feedback.correct ? styles.btnSuccess : styles.btnError)]} 
+              style={[
+                styles.btn, 
+                isCurrentChoice && (feedback.correct ? styles.btnSuccess : styles.btnError)
+              ]} 
               onPress={() => handlePress(opt)}
             >
               <Text style={[styles.btnText, isCurrentChoice && styles.whiteText]}>{opt}</Text>
