@@ -1,31 +1,31 @@
 [
   {
     "id": "u_ou",
-    "title": "U vs OU",
+    "title": "Le Duel : U vs OU",
     "target_sounds": ["/y/", "/u/"],
     "option_buttons": ["/y/", "/u/"]
   },
   {
     "id": "e_spectrum",
-    "title": "The E Spectrum",
+    "title": "Le Spectre des E",
     "target_sounds": ["/e/", "/ɛ/", "/a/"],
     "option_buttons": ["/e/", "/ɛ/", "/a/"]
   },
   {
     "id": "nasal_triangle",
-    "title": "The Nasal Triangle",
+    "title": "Le Triangle des Nasales",
     "target_sounds": ["/ɑ̃/", "/ɛ̃/", "/ɔ̃/"],
     "option_buttons": ["/ɑ̃/", "/ɛ̃/", "/ɔ̃/"]
   },
   {
     "id": "i_vs_y",
-    "title": "I vs Y (The High Vowels)",
+    "title": "I vs Y (Voyelles Hautes)",
     "target_sounds": ["/i/", "/y/"],
     "option_buttons": ["/i/", "/y/"]
   },
   {
     "id": "s_vs_z",
-    "title": "S vs SS (The Z-Vibration)",
+    "title": "S vs SS (La Vibration du Z)",
     "target_sounds": ["/s/", "/z/"],
     "option_buttons": ["/s/", "/z/"]
   }
