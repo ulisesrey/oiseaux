@@ -53,7 +53,14 @@ export const theme = StyleSheet.create({
   activeLevel: { backgroundColor: '#007AFF' },
 
   // Add these to your existing theme.ts
-  menuTitle: { fontSize: 28, fontWeight: 'bold', marginVertical: 40, color: '#1A1A1A' },
+  menuTitle: { 
+    fontSize: 32, 
+    fontWeight: 'bold', 
+    marginTop: 60, // Give it space since the header is gone
+    marginBottom: 20, 
+    color: '#1A1A1A',
+    textAlign: 'center'
+  },
   menuGrid: { width: '100%', paddingHorizontal: 10 },
   menuCard: {
     backgroundColor: '#fff',

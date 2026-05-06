@@ -90,9 +90,6 @@ export default function GameScreen() {
   // --- 2. GAME SCREEN ---
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Text style={styles.backButtonText}>← Quitter</Text>
-      </TouchableOpacity>
 
       <Text style={styles.counterText}>
         Mots: {wordIdx + 1} / {shuffledWords.length}
