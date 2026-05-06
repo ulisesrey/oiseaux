@@ -1,13 +1,18 @@
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+
+// Corrected import syntax
+import { theme as styles } from '../styles/theme';
 
 import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 
-
-// --- HELPER FUNCTION (Defined outside to be globally accessible) ---
+// --- HELPER FUNCTION ---
 const renderWord = (word, indices) => {
-  if (!indices || indices.length < 2) return <Text style={styles.wordText}>{word}</Text>;
+  // Defensive check to prevent crashes if indices are missing
+  if (!indices || indices.length < 2) {
+    return <Text style={styles.wordText}>{word}</Text>;
+  }
   
   const [start, end] = indices;
   const prefix = word.substring(0, start);
@@ -32,6 +37,7 @@ export default function PronunciationApp() {
 
   const currentRule = practiceRules[levelIdx];
   
+  // Filter the wordBank based on current level's target sounds
   const activeWords = useMemo(() => {
     return wordBank.filter(item => 
       currentRule.target_sounds.includes(item.target_ipa)
@@ -41,7 +47,7 @@ export default function PronunciationApp() {
   const currentWord = activeWords[wordIdx];
 
   const handlePress = (choice) => {
-    if (feedback.choice) return; // Ignore clicks during feedback delay
+    if (feedback.choice) return; // Prevent double-tapping during feedback
 
     const correct = choice === currentWord.target_ipa;
     setFeedback({ choice, correct });
@@ -50,7 +56,7 @@ export default function PronunciationApp() {
       setTimeout(() => {
         setWordIdx((prev) => (prev + 1) % activeWords.length);
         setFeedback({ choice: null, correct: null });
-      }, 600); // 600ms is a nice "snappy" transition
+      }, 600); 
     } else {
       setTimeout(() => {
         setFeedback({ choice: null, correct: null });
@@ -58,7 +64,14 @@ export default function PronunciationApp() {
     }
   };
 
-  if (!currentWord) return <View style={styles.container}><Text>Chargement...</Text></View>;
+  // Guard clause for loading or missing data
+  if (!currentWord) {
+    return (
+      <View style={styles.container}>
+        <Text>Chargement...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -99,7 +112,11 @@ export default function PronunciationApp() {
           {practiceRules.map((rule, idx) => (
             <TouchableOpacity 
               key={rule.id} 
-              onPress={() => { setLevelIdx(idx); setWordIdx(0); }}
+              onPress={() => { 
+                setLevelIdx(idx); 
+                setWordIdx(0); 
+                setFeedback({ choice: null, correct: null }); // Reset feedback on level change
+              }}
               style={[styles.smallBtn, levelIdx === idx && styles.activeLevel]}
             >
               <Text style={[styles.smallBtnText, levelIdx === idx && styles.whiteText]}>
@@ -112,40 +129,3 @@ export default function PronunciationApp() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F5F7FA', alignItems: 'center', justifyContent: 'center', padding: 20 },
-  levelTitle: { fontSize: 22, fontWeight: 'bold', position: 'absolute', top: 70, color: '#333' },
-  wordContainer: { 
-    backgroundColor: '#fff', 
-    padding: 40, 
-    borderRadius: 30, 
-    marginBottom: 50,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 10 
-  },
-  wordText: { fontSize: 56, color: '#1A1A1A' },
-  underlined: { textDecorationLine: 'underline', color: '#007AFF', fontWeight: 'bold' },
-  optionsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
-  btn: { 
-    backgroundColor: '#fff', 
-    padding: 20, 
-    margin: 10, 
-    borderRadius: 20, 
-    minWidth: 100, 
-    alignItems: 'center', 
-    borderWidth: 1, 
-    borderColor: '#DDD' 
-  },
-  btnSuccess: { backgroundColor: '#4CD964', borderColor: '#4CD964' },
-  btnError: { backgroundColor: '#FF3B30', borderColor: '#FF3B30' },
-  btnText: { fontSize: 32, fontWeight: '500' },
-  whiteText: { color: '#fff' },
-  footer: { position: 'absolute', bottom: 40, width: '100%' },
-  tabContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
-  smallBtn: { padding: 8, margin: 4, backgroundColor: '#E1E4E8', borderRadius: 10 },
-  smallBtnText: { fontSize: 12, fontWeight: 'bold', color: '#666' },
-  activeLevel: { backgroundColor: '#007AFF' }
-});
