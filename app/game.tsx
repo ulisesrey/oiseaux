@@ -6,7 +6,9 @@ import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 import { theme as styles } from '../styles/theme';
 
-// --- Fisher-Yates Shuffle Helper ---
+// 1. SET THE LIMIT HERE
+const WORDS_PER_SESSION = 10;
+
 const shuffle = (array) => {
   let currentIndex = array.length, randomIndex;
   const newArray = [...array]; 
@@ -41,11 +43,13 @@ export default function GameScreen() {
 
   const currentRule = practiceRules[currentLevelIdx];
 
+  // Logic to get the subset of words
   const shuffledWords = useMemo(() => {
     const filtered = wordBank.filter(item => 
       currentRule.target_sounds.includes(item.target_ipa)
     );
-    return shuffle(filtered);
+    // Shuffle and then take only the first 10
+    return shuffle(filtered).slice(0, WORDS_PER_SESSION);
   }, [currentLevelIdx]);
 
   const currentWord = shuffledWords[wordIdx];
@@ -58,6 +62,7 @@ export default function GameScreen() {
 
     if (correct) {
       setTimeout(() => {
+        // Check against the 10-word limit instead of the full bank
         if (wordIdx + 1 < shuffledWords.length) {
           setWordIdx(prev => prev + 1);
           setFeedback({ choice: null, correct: null });
@@ -76,7 +81,7 @@ export default function GameScreen() {
         <Text style={styles.successEmoji}>🎉</Text>
         <Text style={styles.menuTitle}>Niveau Terminé !</Text>
         <Text style={styles.successSubtitle}>
-          Vous avez maîtrisé {shuffledWords.length} mots de "{currentRule.title}"
+          Bravo ! Vous avez terminé votre session de 10 mots.
         </Text>
         
         <TouchableOpacity style={styles.btn} onPress={() => router.replace("/")}>
@@ -88,18 +93,17 @@ export default function GameScreen() {
 
   return (
     <View style={styles.container}>
-      {/* 1. HIDE DEFAULT HEADER */}
       <Stack.Screen options={{ headerShown: false }} />
 
-      {/* 2. CUSTOM SVG BACK BUTTON */}
       <View style={localStyles.header}>
         <TouchableOpacity onPress={() => router.back()} style={localStyles.backButton}>
           <ArrowLeft color="#2c3e50" size={32} />
         </TouchableOpacity>
       </View>
 
+      {/* 2. UPDATED COUNTER TEXT */}
       <Text style={styles.counterText}>
-        Mots: {wordIdx + 1} / {shuffledWords.length}
+        Mots: {wordIdx + 1} / {WORDS_PER_SESSION}
       </Text>
 
       <View style={styles.wordContainer}>
@@ -131,7 +135,7 @@ const localStyles = StyleSheet.create({
   header: {
     width: '100%',
     position: 'absolute',
-    top: 40, // Adjusted for status bar clearance
+    top: 40,
     left: 0,
     zIndex: 10,
     paddingLeft: 10,
