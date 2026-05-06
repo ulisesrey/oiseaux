@@ -31,4 +31,10 @@ clean:
 dev:
 	npx expo start
 
-.PHONY: all help install build clean dev
+# Define the web export command
+export-web:
+	@echo "Exporting Oiseaux for the web..."
+	npx expo export -p web
+	@echo "Web files are ready in the /dist folder."
+	
+.PHONY: all help install build clean dev web
