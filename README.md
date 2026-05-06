@@ -52,7 +52,7 @@ The drawback of this is that the repository has to be public.
 
 - **app/**: The core logic and screens (file-based routing)
 - **assets/**: Images, icons, and splash screens
-- **data/**: JSON files containing the `wordBank` and `practiceRules` (the "Data Science" layer)
+- **data/**: JSON files containing the `wordBank` and `practiceRules`
 - **Makefile**: The master controller for all deployment tasks
 
 ## 🌍 Availability
