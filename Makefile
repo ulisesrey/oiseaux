@@ -1,9 +1,8 @@
 # Variables
-BUILD_PROFILE = preview # reads from eas.json build "profiles"
+BUILD_PROFILE = preview
 PLATFORM = android
-BUILD_COMMAND = eas build --profile $(BUILD_PROFILE) --platform $(PLATFORM) --local
 
-# Default action when you just type 'make'
+# Default action
 all: help
 
 ## help: Show this help message
@@ -11,30 +10,30 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@sed -n 's/^##//p' Makefile
+	@grep -E '^##' Makefile | sed 's/## //g'
 
 ## install: Install project dependencies
 install:
 	npm install
 
-## build: Run a local EAS production build for Android
-build:
+## build-android: Run a local EAS production build for Android
+build-android:
 	@echo "Starting local $(BUILD_PROFILE) build for $(PLATFORM)..."
-	$(BUILD_COMMAND)
+	eas build --profile $(BUILD_PROFILE) --platform $(PLATFORM) --local
 
-## clean: Remove the local build artifacts (APKs/AABs)
+## deploy-web: Export and deploy Oiseaux to GitHub Pages
+deploy-web:
+	@echo "Launching Oiseaux to the web..."
+	npm run deploy
+	@echo "Success! Check your URL in a few minutes."
+
+## clean: Remove build artifacts and web exports
 clean:
-	rm -rf *.apk *.aab
-	@echo "Cleaned local build files."
+	rm -rf *.apk *.aab dist
+	@echo "Cleaned build artifacts."
 
 ## dev: Run the development server
 dev:
 	npx expo start
 
-# Define the web export command
-export-web:
-	@echo "Exporting Oiseaux for the web..."
-	npx expo export -p web
-	@echo "Web files are ready in the /dist folder."
-	
-.PHONY: all help install build clean dev web
+.PHONY: all help install build-android deploy-web clean dev
