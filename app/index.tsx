@@ -21,8 +21,8 @@ export default function MainMenu() {
               params: { levelIdx: index }
             })}
           >
-            <Text style={styles.cardId}>{rule.id.toUpperCase()}</Text>
             <Text style={styles.cardTitle}>{rule.title}</Text>
+            
             <View style={styles.soundBadgeContainer}>
               {rule.target_sounds.map(s => (
                 <Text key={s} style={styles.soundBadge}>{s}</Text>
