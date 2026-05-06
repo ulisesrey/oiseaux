@@ -1,220 +1,55 @@
 [
   /* --- The "U" vs "OU" Battle --- */
-  { 
-    "word": "tu", 
-    "target_ipa": "/y/", 
-    "segments": [{ "text": "t", "underline": false }, { "text": "u", "underline": true }] 
-  },
-  { 
-    "word": "tout", 
-    "target_ipa": "/u/", 
-    "segments": [{ "text": "t", "underline": false }, { "text": "out", "underline": true }] 
-  },
-  { 
-    "word": "rue", 
-    "target_ipa": "/y/", 
-    "segments": [{ "text": "r", "underline": false }, { "text": "ue", "underline": true }] 
-  },
-  { 
-    "word": "roue", 
-    "target_ipa": "/u/", 
-    "segments": [{ "text": "r", "underline": false }, { "text": "oue", "underline": true }] 
-  },
-  { 
-    "word": "jus", 
-    "target_ipa": "/y/", 
-    "segments": [{ "text": "j", "underline": false }, { "text": "u", "underline": true }, { "text": "s", "underline": false }] 
-  },
-  { 
-    "word": "joue", 
-    "target_ipa": "/u/", 
-    "segments": [{ "text": "j", "underline": false }, { "text": "oue", "underline": true }] 
-  },
+  { "word": "tu", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "tout", "target_ipa": "/u/", "underlined_indices": [1, 4] },
+  { "word": "rue", "target_ipa": "/y/", "underlined_indices": [1, 3] },
+  { "word": "roue", "target_ipa": "/u/", "underlined_indices": [1, 4] },
+  { "word": "jus", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "joue", "target_ipa": "/u/", "underlined_indices": [1, 4] },
 
-  /* --- The "E" Spectrum (/e/, /ɛ/, /a/) --- */
-  { 
-    "word": "café", 
-    "target_ipa": "/e/", 
-    "segments": [{ "text": "caf", "underline": false }, { "text": "é", "underline": true }] 
-  },
-  { 
-    "word": "merci", 
-    "target_ipa": "/ɛ/", 
-    "segments": [{ "text": "m", "underline": false }, { "text": "er", "underline": true }, { "text": "ci", "underline": false }] 
-  },
-  { 
-    "word": "chat", 
-    "target_ipa": "/a/", 
-    "segments": [{ "text": "ch", "underline": false }, { "text": "at", "underline": true }] 
-  },
-  { 
-    "word": "parler", 
-    "target_ipa": "/e/", 
-    "segments": [{ "text": "parl", "underline": false }, { "text": "er", "underline": true }] 
-  },
-  { 
-    "word": "fête", 
-    "target_ipa": "/ɛ/", 
-    "segments": [{ "text": "f", "underline": false }, { "text": "ête", "underline": true }] 
-  },
+  /* --- The "E" Spectrum --- */
+  { "word": "café", "target_ipa": "/e/", "underlined_indices": [3, 4] },
+  { "word": "merci", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
+  { "word": "chat", "target_ipa": "/a/", "underlined_indices": [2, 4] },
+  { "word": "parler", "target_ipa": "/e/", "underlined_indices": [4, 6] },
+  { "word": "fête", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
+  { "word": "neige", "target_ipa": "/ɛ/", "underlined_indices": [1, 3] },
 
-  /* --- The Nasals (/ɑ̃/, /ɛ̃/, /ɔ̃/) --- */
-  { 
-    "word": "enfant", 
-    "target_ipa": "/ɑ̃/", 
-    "segments": [{ "text": "enf", "underline": false }, { "text": "ant", "underline": true }] 
-  },
-  { 
-    "word": "vin", 
-    "target_ipa": "/ɛ̃/", 
-    "segments": [{ "text": "v", "underline": false }, { "text": "in", "underline": true }] 
-  },
-  { 
-    "word": "bonbon", 
-    "target_ipa": "/ɔ̃/", 
-    "segments": [{ "text": "b", "underline": false }, { "text": "on", "underline": true }, { "text": "bon", "underline": false }] 
-  },
-  { 
-    "word": "main", 
-    "target_ipa": "/ɛ̃/", 
-    "segments": [{ "text": "m", "underline": false }, { "text": "ain", "underline": true }] 
-  },
-  { 
-    "word": "temps", 
-    "target_ipa": "/ɑ̃/", 
-    "segments": [{ "text": "t", "underline": false }, { "text": "emps", "underline": true }] 
-  },
-  { 
-    "word": "maison", 
-    "target_ipa": "/ɔ̃/", 
-    "segments": [{ "text": "mais", "underline": false }, { "text": "on", "underline": true }] 
-  },
+  /* --- The Nasals --- */
+  { "word": "enfant", "target_ipa": "/ɑ̃/", "underlined_indices": [3, 6] },
+  { "word": "vin", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 3] },
+  { "word": "bonbon", "target_ipa": "/ɔ̃/", "underlined_indices": [1, 3] },
+  { "word": "main", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 4] },
+  { "word": "temps", "target_ipa": "/ɑ̃/", "underlined_indices": [1, 5] },
+  { "word": "maison", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] },
+  { "word": "faim", "target_ipa": "/ɛ̃/", "underlined_indices": [1, 4] },
 
-  /* --- The "French E" /ə/ (The Schwa) --- */
-  { 
-    "word": "le", 
-    "target_ipa": "/ə/", 
-    "segments": [{ "text": "l", "underline": false }, { "text": "e", "underline": true }] 
-  },
-  { 
-    "word": "petit", 
-    "target_ipa": "/ə/", 
-    "segments": [{ "text": "p", "underline": false }, { "text": "e", "underline": true }, { "text": "tit", "underline": false }] 
-  },
-  [
-  /* --- EXISTING ENTRIES REMAIN HERE --- */
-
-  /* --- The "I" vs "Y" High Vowel Battle --- */
-  { 
-    "word": "lit", 
-    "target_ipa": "/i/", 
-    "segments": [{ "text": "l", "underline": false }, { "text": "i", "underline": true }, { "text": "t", "underline": false }] 
-  },
-  { 
-    "word": "lu", 
-    "target_ipa": "/y/", 
-    "segments": [{ "text": "l", "underline": false }, { "text": "u", "underline": true }] 
-  },
-  { 
-    "word": "si", 
-    "target_ipa": "/i/", 
-    "segments": [{ "text": "s", "underline": false }, { "text": "i", "underline": true }] 
-  },
-  { 
-    "word": "su", 
-    "target_ipa": "/y/", 
-    "segments": [{ "text": "s", "underline": false }, { "text": "u", "underline": true }] 
-  },
-  { 
-    "word": "vie", 
-    "target_ipa": "/i/", 
-    "segments": [{ "text": "v", "underline": false }, { "text": "ie", "underline": true }] 
-  },
-  { 
-    "word": "vue", 
-    "target_ipa": "/y/", 
-    "segments": [{ "text": "v", "underline": false }, { "text": "ue", "underline": true }] 
-  },
+  /* --- The High Vowels (I vs Y) --- */
+  { "word": "lit", "target_ipa": "/i/", "underlined_indices": [1, 2] },
+  { "word": "lu", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "si", "target_ipa": "/i/", "underlined_indices": [1, 2] },
+  { "word": "su", "target_ipa": "/y/", "underlined_indices": [1, 2] },
+  { "word": "vie", "target_ipa": "/i/", "underlined_indices": [1, 3] },
+  { "word": "vue", "target_ipa": "/y/", "underlined_indices": [1, 3] },
 
   /* --- S vs SS (The /s/ vs /z/ vibration) --- */
-  { 
-    "word": "poisson", 
-    "target_ipa": "/s/", 
-    "segments": [{ "text": "poi", "underline": false }, { "text": "ss", "underline": true }, { "text": "on", "underline": false }] 
-  },
-  { 
-    "word": "poison", 
-    "target_ipa": "/z/", 
-    "segments": [{ "text": "poi", "underline": false }, { "text": "s", "underline": true }, { "text": "on", "underline": false }] 
-  },
-  { 
-    "word": "dessert", 
-    "target_ipa": "/s/", 
-    "segments": [{ "text": "de", "underline": false }, { "text": "ss", "underline": true }, { "text": "ert", "underline": false }] 
-  },
-  { 
-    "word": "désert", 
-    "target_ipa": "/z/", 
-    "segments": [{ "text": "dé", "underline": false }, { "text": "s", "underline": true }, { "text": "ert", "underline": false }] 
-  },
-  { 
-    "word": "basse", 
-    "target_ipa": "/s/", 
-    "segments": [{ "text": "ba", "underline": false }, { "text": "ss", "underline": true }, { "text": "e", "underline": false }] 
-  },
-  { 
-    "word": "base", 
-    "target_ipa": "/z/", 
-    "segments": [{ "text": "ba", "underline": false }, { "text": "s", "underline": true }, { "text": "e", "underline": false }] 
-  },
+  { "word": "poisson", "target_ipa": "/s/", "underlined_indices": [3, 5] },
+  { "word": "poison", "target_ipa": "/z/", "underlined_indices": [3, 4] },
+  { "word": "dessert", "target_ipa": "/s/", "underlined_indices": [2, 4] },
+  { "word": "désert", "target_ipa": "/z/", "underlined_indices": [2, 3] },
+  { "word": "attention", "target_ipa": "/s/", "underlined_indices": [5, 6] },
+  { "word": "valise", "target_ipa": "/z/", "underlined_indices": [4, 5] },
 
   /* --- The Rounded E Spectrum (/ø/ vs /œ/) --- */
-  { 
-    "word": "peu", 
-    "target_ipa": "/ø/", 
-    "segments": [{ "text": "p", "underline": false }, { "text": "eu", "underline": true }] 
-  },
-  { 
-    "word": "peur", 
-    "target_ipa": "/œ/", 
-    "segments": [{ "text": "p", "underline": false }, { "text": "eur", "underline": true }] 
-  },
-  { 
-    "word": "deux", 
-    "target_ipa": "/ø/", 
-    "segments": [{ "text": "d", "underline": false }, { "text": "eux", "underline": true }] 
-  },
-  { 
-    "word": "fleur", 
-    "target_ipa": "/œ/", 
-    "segments": [{ "text": "fl", "underline": false }, { "text": "eur", "underline": true }] 
-  },
-  { 
-    "word": "bleu", 
-    "target_ipa": "/ø/", 
-    "segments": [{ "text": "bl", "underline": false }, { "text": "eu", "underline": true }] 
-  },
-  { 
-    "word": "sœur", 
-    "target_ipa": "/œ/", 
-    "segments": [{ "text": "s", "underline": false }, { "text": "œur", "underline": true }] 
-  },
+  { "word": "peu", "target_ipa": "/ø/", "underlined_indices": [1, 3] },
+  { "word": "peur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
+  { "word": "deux", "target_ipa": "/ø/", "underlined_indices": [1, 4] },
+  { "word": "fleur", "target_ipa": "/œ/", "underlined_indices": [2, 5] },
+  { "word": "bleu", "target_ipa": "/ø/", "underlined_indices": [2, 4] },
+  { "word": "sœur", "target_ipa": "/œ/", "underlined_indices": [1, 4] },
 
-  /* --- Extra Nasal Variation --- */
-  { 
-    "word": "un", 
-    "target_ipa": "/ɛ̃/", 
-    "segments": [{ "text": "un", "underline": true }] 
-  },
-  { 
-    "word": "an", 
-    "target_ipa": "/ɑ̃/", 
-    "segments": [{ "text": "an", "underline": true }] 
-  },
-  { 
-    "word": "on", 
-    "target_ipa": "/ɔ̃/", 
-    "segments": [{ "text": "on", "underline": true }] 
-  }
-]
+  /* --- Schwa and Mixed --- */
+  { "word": "le", "target_ipa": "/ə/", "underlined_indices": [1, 2] },
+  { "word": "petit", "target_ipa": "/ə/", "underlined_indices": [1, 2] },
+  { "word": "oignon", "target_ipa": "/ɔ̃/", "underlined_indices": [4, 6] }
 ]
