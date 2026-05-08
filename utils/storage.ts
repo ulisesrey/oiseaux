@@ -39,8 +39,8 @@ export const getUserStats = async (): Promise<UserStats> => {
 
     let stats: UserStats = { ...DEFAULT_STATS, ...JSON.parse(data) };
 
-    // Example: If more than 1 hour passed since last refresh, give full lives
-    const REFRESH_RATE = 60 * 1000 //60 * 60 * 1000; // 1h
+    // 1000 ms * 60 sec * 60 min * 24 hrs = 1 day
+    const REFRESH_RATE = 60 * 60 * 1000; // 1h
     if (Date.now() - stats.lastHeartRefresh > REFRESH_RATE && stats.lives < 5) {
       stats.lives = 5;
       stats.lastHeartRefresh = Date.now();
