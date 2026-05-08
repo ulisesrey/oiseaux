@@ -19,7 +19,7 @@ make dev
 I use EAS (Expo Application Services) to build native binaries. Unlike web files, an APK must be compiled into machine code. This triggers a Local Build. It uses your computer’s resources to package the app into a .apk file that can be manually installed on any Android device.
 
 ```bash
-make build-android
+make build
 ```
 
 ### 3. Web Deployment (GitHub Pages)

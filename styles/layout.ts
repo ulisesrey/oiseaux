@@ -9,7 +9,7 @@ export const layoutStyles = StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomWidth: 2,
     borderBottomColor: '#E5E5E5',
-    gap: 15,
+    gap: 20,
   },
   // NEW: Added for the Game Screen HUD
   hud: {

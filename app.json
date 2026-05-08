@@ -46,12 +46,12 @@
       "typedRoutes": true,
       "reactCompiler": true
     },
+    "owner": "ulisesrey",
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "a37195dc-517c-4e1d-8c34-c1dd55cc49b9"
+        "projectId": "3c309902-c218-4877-81da-6e0ab4dec3ff"
       }
-    },
-    "owner": "ulisesrey"
+    }
   }
 }
