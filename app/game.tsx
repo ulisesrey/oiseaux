@@ -1,7 +1,7 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ArrowLeft, Heart } from 'lucide-react-native';
-import React, { useEffect, useMemo, useRef, useState } from 'react'; // Added useRef
-import { Animated, Text, TouchableOpacity, View } from 'react-native'; // Added Animated
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 import { useCombo } from '../hooks/useCombo';
@@ -37,64 +37,89 @@ const renderWord = (word: string, indices: number[]) => {
 
 export default function GameScreen() {
   const router = useRouter();
-  const { levelIdx } = useLocalSearchParams();
-  const currentLevelIdx = parseInt(levelIdx as string) || 0;
+  
+  // 1. Get the String ID (e.g., "1-2") instead of an index
+  const { levelId } = useLocalSearchParams<{ levelId: string }>();
+
+  // 2. Find the rule in our Curriculum Tree
+  const currentRule = useMemo(() => {
+    for (const lvl of practiceRules) {
+      const sub = lvl.sublevels.find(s => s.id === levelId);
+      if (sub) {
+        return { level: lvl.level, ...sub }; // We attach the parent Level number to help find words
+      }
+    }
+    return null;
+  }, [levelId]);
 
   // --- Combo Animation Logic ---
-  // A. Define the starting animation values (Scale: 0.3, Opacity: 0)
   const animScale = useRef(new Animated.Value(0.3)).current;
   const animOpacity = useRef(new Animated.Value(0)).current;
 
-  // B. Define the function that runs the sequence
   const popCombo = () => {
-    // Reset values immediately
     animScale.setValue(0.3);
     animOpacity.setValue(1);
-
     Animated.sequence([
-      // 1. Pop up (Scale from 0.3 to 1.3 slightly too big)
-      Animated.spring(animScale, {
-        toValue: 1,
-        friction: 4, // Control the bounciness
-        tension: 40,
-        useNativeDriver: true,
-      }),
-      // 2. Wait a beat
+      Animated.spring(animScale, { toValue: 1, friction: 4, tension: 40, useNativeDriver: true }),
       Animated.delay(500),
-      // 3. Fade out
-      Animated.timing(animOpacity, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }),
+      Animated.timing(animOpacity, { toValue: 0, duration: 300, useNativeDriver: true }),
     ]).start();
   };
 
-  // --- Logic Hooks ---
-  // Pass the animation function to the combo hook
   const { combo, maxCombo, updateCombo } = useCombo(popCombo); 
 
   // --- Game State ---
   const [wordIdx, setWordIdx] = useState(0);
   const [lives, setLives] = useState(5);
-  const [feedback, setFeedback] = useState<{choice: string | null, correct: boolean | null}>({ 
-    choice: null, 
-    correct: null 
-  });
+  const [feedback, setFeedback] = useState<{choice: string | null, correct: boolean | null}>({ choice: null, correct: null });
   const [isFinished, setIsFinished] = useState(false);
-
-  const currentRule = practiceRules[currentLevelIdx];
 
   useEffect(() => {
     getUserStats().then(stats => setLives(stats.lives));
   }, []);
 
+  // 3. Extract the Words from the Word Bank Tree
   const shuffledWords = useMemo(() => {
-    const filtered = wordBank.filter(item => 
-      currentRule.target_sounds.includes(item.target_ipa)
+    if (!currentRule) return [];
+
+    // Find Level block
+    const levelData = wordBank.find(l => l.level === currentRule.level);
+    if (!levelData) return [];
+
+    // Find Sublevel block
+    const sublevelData = levelData.sublevels.find(s => s.sublevel === currentRule.sublevel);
+    if (!sublevelData) return [];
+
+    // Flatten the sounds array into a single array of words
+    let availableWords: any[] = [];
+    
+    sublevelData.sounds.forEach(soundGroup => {
+      // Security check: Only grab words if their sound is actually one of our option buttons
+      if (currentRule.option_buttons.includes(soundGroup.target_ipa)) {
+        soundGroup.words.forEach(wordObj => {
+          // We manually attach the target_ipa to the word so the game logic can check the answer
+          availableWords.push({
+            ...wordObj,
+            target_ipa: soundGroup.target_ipa
+          });
+        });
+      }
+    });
+
+    return shuffle(availableWords).slice(0, WORDS_PER_SESSION);
+  }, [currentRule]);
+
+  // Fallback if rule not found or word array is empty
+  if (!currentRule || shuffledWords.length === 0) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center' }]}>
+        <Text style={styles.menuTitle}>Erreur de niveau</Text>
+        <TouchableOpacity style={styles.btn} onPress={() => router.back()}>
+          <Text style={styles.btnText}>Retour</Text>
+        </TouchableOpacity>
+      </View>
     );
-    return shuffle(filtered).slice(0, WORDS_PER_SESSION);
-  }, [currentLevelIdx]);
+  }
 
   const currentWord = shuffledWords[wordIdx];
 
@@ -126,14 +151,18 @@ export default function GameScreen() {
   const finishGame = async () => {
     const bonus = maxCombo * 10;
     await addStars(100 + bonus);
-    await saveLevelCompletion(currentLevelIdx);
+    
+    // 4. Save progress using the new string ID (e.g. "1-2") instead of a number!
+    if (levelId) {
+      await saveLevelCompletion(levelId); 
+    }
+    
     setIsFinished(true);
   };
 
   const progressPercent = (wordIdx / WORDS_PER_SESSION) * 100;
 
   // --- Conditional Renders ---
-
   if (isFinished) {
     return (
       <View style={styles.container}>
@@ -169,30 +198,15 @@ export default function GameScreen() {
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
 
-      {/* --- Animated Combo Popup --- */}
-      {/* 1. View must be 'Animated.View' */}
       <Animated.View style={{ 
-        position: 'absolute', 
-        top: 120, 
-        zIndex: 10, 
-        width: '100%', 
-        alignItems: 'center',
-        // 2. Link styles to the animated values
-        opacity: animOpacity, 
-        transform: [{ scale: animScale }] 
+        position: 'absolute', top: 120, zIndex: 10, width: '100%', alignItems: 'center',
+        opacity: animOpacity, transform: [{ scale: animScale }] 
       }}>
-        <Text style={{ 
-          fontSize: 36, 
-          fontWeight: '900', 
-          color: '#FFD700', 
-          textShadowColor: 'rgba(0,0,0,0.5)', 
-          textShadowRadius: 4 
-        }}>
+        <Text style={{ fontSize: 36, fontWeight: '900', color: '#FFD700', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4 }}>
           {combo} À LA SUITE ! 🔥
         </Text>
       </Animated.View>
 
-      {/* Header HUD */}
       <View style={layoutStyles.hud}>
         <TouchableOpacity onPress={() => router.back()}>
           <ArrowLeft color="#AFC2CB" size={28} />
@@ -208,12 +222,10 @@ export default function GameScreen() {
         </View>
       </View>
 
-      {/* Main Content */}
       <View style={styles.wordContainer}>
         {renderWord(currentWord.word, currentWord.underlined_indices)}
       </View>
 
-      {/* Options */}
       <View style={styles.optionsGrid}>
         {currentRule.option_buttons.map((opt) => {
           const isCurrentChoice = feedback.choice === opt;

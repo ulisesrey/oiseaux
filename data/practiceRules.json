@@ -1,32 +1,38 @@
 [
   {
-    "id": "u_ou",
-    "title": "Le Duel : U vs OU",
-    "target_sounds": ["/y/", "/u/"],
-    "option_buttons": ["/y/", "/u/"]
+    "level": 1,
+    "level_title": "Niveau 1 : Les bases (mots courts)",
+    "sublevels": [
+      {
+        "id": "1-1",
+        "sublevel": 1,
+        "title": "I vs U (Le sourire)",
+        "option_buttons": ["/i/", "/y/"]
+      },
+      {
+        "id": "1-2",
+        "sublevel": 2,
+        "title": "U vs OU (Le classique)",
+        "option_buttons": ["/y/", "/u/"]
+      },
+      {
+        "id": "1-3",
+        "sublevel": 3,
+        "title": "I vs OU (Les extrêmes)",
+        "option_buttons": ["/i/", "/u/"]
+      }
+    ]
   },
   {
-    "id": "e_spectrum",
-    "title": "Le Spectre des E",
-    "target_sounds": ["/e/", "/ɛ/", "/a/"],
-    "option_buttons": ["/e/", "/ɛ/", "/a/"]
-  },
-  {
-    "id": "nasal_triangle",
-    "title": "Le Triangle des Nasales",
-    "target_sounds": ["/ɑ̃/", "/ɛ̃/", "/ɔ̃/"],
-    "option_buttons": ["/ɑ̃/", "/ɛ̃/", "/ɔ̃/"]
-  },
-  {
-    "id": "i_vs_y",
-    "title": "I vs Y (Voyelles Hautes)",
-    "target_sounds": ["/i/", "/y/"],
-    "option_buttons": ["/i/", "/y/"]
-  },
-  {
-    "id": "s_vs_z",
-    "title": "S vs SS (La Vibration du Z)",
-    "target_sounds": ["/s/", "/z/"],
-    "option_buttons": ["/s/", "/z/"]
+    "level": 2,
+    "level_title": "Niveau 2 : Vocabulaire étendu",
+    "sublevels": [
+      {
+        "id": "2-1",
+        "sublevel": 1,
+        "title": "U vs OU (Avancé)",
+        "option_buttons": ["/y/", "/u/"]
+      }
+    ]
   }
 ]
