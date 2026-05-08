@@ -43,3 +43,4 @@ app-example
 /android
 build**.apk
 build**.aab
+extra_files/*
