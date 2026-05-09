@@ -13,14 +13,14 @@ export const layoutStyles = StyleSheet.create({
     gap: 20,
   },
   hud: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 20,
     position: 'absolute',
     top: 50,
     zIndex: 10,
+    gap: 8,
   },
   statItem: {
     flexDirection: 'row',
@@ -46,16 +46,15 @@ export const layoutStyles = StyleSheet.create({
     color: colors.textWhite, // Was #fff
   },
   progressTrack: {
-    flex: 1,
-    height: 14,
-    backgroundColor: colors.locked, // Was #E5E5E5
-    borderRadius: 7,
-    marginHorizontal: 15,
+    height: 22,
+    backgroundColor: colors.locked,
+    borderRadius: 11,
     overflow: 'hidden',
+    width: '100%',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: colors.duoGreen, // Was #58CC02
-    borderRadius: 7,
+    backgroundColor: colors.duoGreen,
+    borderRadius: 11,
   }
 });

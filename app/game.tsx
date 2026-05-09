@@ -6,7 +6,7 @@ import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 import { useCombo } from '../hooks/useCombo';
 import { layoutStyles } from '../styles/layout';
-import { theme as styles } from '../styles/theme';
+import { colors, theme as styles } from '../styles/theme'; // <-- Imported colors here!
 import { addStars, getUserStats, saveLevelCompletion, updateLives } from '../utils/storage';
 
 const WORDS_PER_SESSION = 5;
@@ -38,15 +38,13 @@ const renderWord = (word: string, indices: number[]) => {
 export default function GameScreen() {
   const router = useRouter();
   
-  // 1. Get the String ID (e.g., "1-2") instead of an index
   const { levelId } = useLocalSearchParams<{ levelId: string }>();
 
-  // 2. Find the rule in our Curriculum Tree
   const currentRule = useMemo(() => {
     for (const lvl of practiceRules) {
       const sub = lvl.sublevels.find(s => s.id === levelId);
       if (sub) {
-        return { level: lvl.level, ...sub }; // We attach the parent Level number to help find words
+        return { level: lvl.level, ...sub };
       }
     }
     return null;
@@ -78,26 +76,20 @@ export default function GameScreen() {
     getUserStats().then(stats => setLives(stats.lives));
   }, []);
 
-  // 3. Extract the Words from the Word Bank Tree
   const shuffledWords = useMemo(() => {
     if (!currentRule) return [];
 
-    // Find Level block
     const levelData = wordBank.find(l => l.level === currentRule.level);
     if (!levelData) return [];
 
-    // Find Sublevel block
     const sublevelData = levelData.sublevels.find(s => s.sublevel === currentRule.sublevel);
     if (!sublevelData) return [];
 
-    // Flatten the sounds array into a single array of words
     let availableWords: any[] = [];
     
     sublevelData.sounds.forEach(soundGroup => {
-      // Security check: Only grab words if their sound is actually one of our option buttons
       if (currentRule.option_buttons.includes(soundGroup.target_ipa)) {
         soundGroup.words.forEach(wordObj => {
-          // We manually attach the target_ipa to the word so the game logic can check the answer
           availableWords.push({
             ...wordObj,
             target_ipa: soundGroup.target_ipa
@@ -109,7 +101,6 @@ export default function GameScreen() {
     return shuffle(availableWords).slice(0, WORDS_PER_SESSION);
   }, [currentRule]);
 
-  // Fallback if rule not found or word array is empty
   if (!currentRule || shuffledWords.length === 0) {
     return (
       <View style={[styles.container, { justifyContent: 'center' }]}>
@@ -137,7 +128,7 @@ export default function GameScreen() {
           setWordIdx(prev => prev + 1);
           setFeedback({ choice: null, correct: null });
         } else {
-          finishGame();
+          setTimeout(finishGame, 300);
         }
       }, 700);
     } else {
@@ -152,7 +143,6 @@ export default function GameScreen() {
     const bonus = maxCombo * 10;
     await addStars(100 + bonus);
     
-    // 4. Save progress using the new string ID (e.g. "1-2") instead of a number!
     if (levelId) {
       await saveLevelCompletion(levelId); 
     }
@@ -160,7 +150,7 @@ export default function GameScreen() {
     setIsFinished(true);
   };
 
-  const progressPercent = (wordIdx / WORDS_PER_SESSION) * 100;
+  const progressPercent = ((wordIdx + (feedback.correct ? 1 : 0)) / WORDS_PER_SESSION) * 100;
 
   // --- Conditional Renders ---
   if (isFinished) {
@@ -170,7 +160,8 @@ export default function GameScreen() {
         <Text style={styles.menuTitle}>Niveau Terminé !</Text>
         <View style={{ marginVertical: 20, alignItems: 'center' }}>
           <Text style={styles.successSubtitle}>Score de base : 100 ⭐</Text>
-          <Text style={[styles.successSubtitle, { color: '#FFD700', fontWeight: 'bold' }]}>
+          {/* REPLACED: #FFD700 with colors.gold */}
+          <Text style={[styles.successSubtitle, { color: colors.gold, fontWeight: 'bold' }]}>
             Bonus Combo (x{maxCombo}) : +{maxCombo * 10} ⭐
           </Text>
         </View>
@@ -184,7 +175,8 @@ export default function GameScreen() {
   if (lives <= 0) {
     return (
       <View style={styles.container}>
-        <Heart color="#FF4B4B" size={80} fill="#FF4B4B" />
+        {/* REPLACED: #FF4B4B with colors.heartRed */}
+        <Heart color={colors.heartRed} size={80} fill={colors.heartRed} />
         <Text style={styles.menuTitle}>Mince !</Text>
         <Text style={styles.successSubtitle}>Vous n'avez plus de vies. Attendez un peu ou réessayez !</Text>
         <TouchableOpacity style={styles.btn} onPress={() => router.replace("/")}>
@@ -202,23 +194,24 @@ export default function GameScreen() {
         position: 'absolute', top: 120, zIndex: 10, width: '100%', alignItems: 'center',
         opacity: animOpacity, transform: [{ scale: animScale }] 
       }}>
-        <Text style={{ fontSize: 36, fontWeight: '900', color: '#FFD700', textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4 }}>
+        {/* REPLACED: #FFD700 with colors.gold */}
+        <Text style={{ fontSize: 36, fontWeight: '900', color: colors.gold, textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4 }}>
           {combo} À LA SUITE ! 🔥
         </Text>
       </Animated.View>
 
-      <View style={layoutStyles.hud}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <ArrowLeft color="#AFC2CB" size={28} />
-        </TouchableOpacity>
-
+      <View style={[layoutStyles.hud, { flexDirection: 'column', gap: 8 }]}>
         <View style={layoutStyles.progressTrack}>
           <View style={[layoutStyles.progressFill, { width: `${progressPercent}%` }]} />
         </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Heart color="#FF4B4B" size={24} fill="#FF4B4B" />
-          <Text style={[layoutStyles.statText, { color: '#FF4B4B', marginLeft: 5 }]}>{lives}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <ArrowLeft color={colors.textMuted} size={28} />
+          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Heart color={colors.heartRed} size={24} fill={colors.heartRed} />
+            <Text style={[layoutStyles.statText, { color: colors.heartRed, marginLeft: 5 }]}>{lives}</Text>
+          </View>
         </View>
       </View>
 

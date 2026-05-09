@@ -4,6 +4,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import practiceRules from '../data/practiceRules.json';
 import { layoutStyles } from '../styles/layout';
+import { colors } from '../styles/theme'; // Fixed import path!
 import { getUserStats, UserStats } from '../utils/storage';
 
 export default function MainMenu() {
@@ -18,8 +19,6 @@ export default function MainMenu() {
   useFocusEffect(
     useCallback(() => {
       loadStats();
-      // Just a quick reminder: this is still checking every 10 seconds! 
-      // If you meant to change it to daily, you can do it here later.
       const interval = setInterval(loadStats, 10000);
       return () => clearInterval(interval);
     }, [])
@@ -36,15 +35,15 @@ export default function MainMenu() {
       {/* --- HEADER HUD --- */}
       <View style={layoutStyles.headerContainer}>
         <View style={layoutStyles.statItem}>
-          <Flame color="#FF4B4B" size={20} fill="#FF4B4B" />
+          <Flame color={colors.heartRed} size={20} fill={colors.heartRed} />
           <Text style={layoutStyles.statText}>4</Text>
         </View>
         <View style={[layoutStyles.statItem, layoutStyles.starBg]}>
-          <Star color="#FFD700" size={20} fill="#FFD700" />
+          <Star color={colors.gold} size={20} fill={colors.gold} />
           <Text style={[layoutStyles.statText, layoutStyles.whiteText]}>{stats.stars.toLocaleString()}</Text>
         </View>
         <View style={layoutStyles.statItem}>
-          <Heart color="#FF4B4B" size={20} fill="#FF4B4B" />
+          <Heart color={colors.heartRed} size={20} fill={colors.heartRed} />
           <Text style={layoutStyles.statText}>{stats.lives}</Text>
         </View>
       </View>
@@ -75,7 +74,7 @@ export default function MainMenu() {
               return (
                 <View 
                   key={sublevel.id} 
-                  style={[styles.nodeWrapper, { transform: [{ translateX }] }]} // Transform stays inline!
+                  style={[styles.nodeWrapper, { transform: [{ translateX }] }]}
                 >
                   
                   {/* The Circular Button */}
@@ -96,7 +95,7 @@ export default function MainMenu() {
                     {isCompleted ? (
                       <Check color="#fff" size={40} strokeWidth={3} />
                     ) : !isUnlocked ? (
-                      <Lock color="#999" size={32} />
+                      <Lock color={colors.textMuted} size={32} />
                     ) : (
                       <Star color="#fff" size={32} fill="#fff" />
                     )}
@@ -119,12 +118,11 @@ export default function MainMenu() {
   );
 }
 
-// --- STYLES ---
+// RESTORED STYLES FOR THIS SCREEN
 const styles = StyleSheet.create({
-  // Extracted Styles
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background, // Using our new theme color!
   },
   scrollContent: {
     paddingVertical: 40,
@@ -139,10 +137,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
   },
-  
-  // Existing Styles
   sectionHeader: {
-    backgroundColor: '#58CC02',
+    backgroundColor: colors.duoGreen,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 16,
@@ -151,7 +147,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   sectionTitle: {
-    color: '#fff',
+    color: colors.textWhite,
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -163,40 +159,40 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 4,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
   },
   nodeCompleted: {
-    backgroundColor: '#FFD700',
-    borderColor: '#E5C100',
+    backgroundColor: colors.gold,
+    borderColor: colors.goldDark,
   },
   nodeCurrent: {
-    backgroundColor: '#58CC02',
-    borderColor: '#4BAA00',
+    backgroundColor: colors.duoGreen,
+    borderColor: colors.duoGreenDark,
     transform: [{ scale: 1.1 }],
   },
   nodeLocked: {
-    backgroundColor: '#E5E5E5',
-    borderColor: '#CECECE',
+    backgroundColor: colors.locked,
+    borderColor: colors.lockedDark,
   },
   nodeLabelContainer: {
     marginTop: 8,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#E5E5E5',
+    borderColor: colors.border,
   },
   nodeLabel: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#4B4B4B',
+    color: colors.textMain,
   },
   nodeLabelLocked: {
-    color: '#bbb',
+    color: colors.textMuted,
   }
 });
