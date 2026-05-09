@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './theme'; // <-- Bring in the single source of truth!
 
 export const layoutStyles = StyleSheet.create({
   headerContainer: {
@@ -6,12 +7,11 @@ export const layoutStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 12,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderBottomWidth: 2,
-    borderBottomColor: '#E5E5E5',
+    borderBottomColor: colors.locked, // Was #E5E5E5
     gap: 20,
   },
-  // NEW: Added for the Game Screen HUD
   hud: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -25,38 +25,37 @@ export const layoutStyles = StyleSheet.create({
   statItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F7F7F7',
+    backgroundColor: colors.grayLighter, // Was #F7F7F7
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#E5E5E5',
+    borderColor: colors.locked, // Was #E5E5E5
   },
   starBg: {
-    backgroundColor: '#2D2D2D', 
-    borderColor: '#000',
+    backgroundColor: colors.textDark, // Was #2D2D2D. textDark is a great fit for a dark pill background
+    borderColor: colors.shadow,       // Was #000
   },
   statText: {
     marginLeft: 6,
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#333',
+    color: colors.textMain, // Was #333
   },
   whiteText: {
-    color: '#fff',
+    color: colors.textWhite, // Was #fff
   },
-  // NEW: Added for the Progress Bar
   progressTrack: {
     flex: 1,
     height: 14,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: colors.locked, // Was #E5E5E5
     borderRadius: 7,
     marginHorizontal: 15,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#58CC02',
+    backgroundColor: colors.duoGreen, // Was #58CC02
     borderRadius: 7,
   }
 });
