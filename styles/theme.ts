@@ -8,8 +8,8 @@ export const colors = {
   error: '#FF3B30',        // Red for wrong answers
   
   // Duolingo-style Path Colors (Ready to be imported into index.tsx!)
-  duoGreen: '#58CC02',
-  duoGreenDark: '#4BAA00',
+  duoGreen: '#5A31F4',      // Vibrant Indigo
+  duoGreenDark: '#451BE0',  // Deep Indigo shadow
   gold: '#FFD700',
   goldDark: '#E5C100',
   heartRed: '#FF4B4B',
