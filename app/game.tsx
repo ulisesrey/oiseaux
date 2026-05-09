@@ -2,7 +2,6 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { ArrowLeft, Heart } from 'lucide-react-native';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
-import practiceRules from '../data/practiceRules.json';
 import wordBank from '../data/wordBank.json';
 import { useCombo } from '../hooks/useCombo';
 import { layoutStyles } from '../styles/layout';
@@ -41,13 +40,18 @@ export default function GameScreen() {
   const { levelId } = useLocalSearchParams<{ levelId: string }>();
 
   const currentRule = useMemo(() => {
-    for (const lvl of practiceRules) {
-      const sub = lvl.sublevels.find(s => s.id === levelId);
-      if (sub) {
-        return { level: lvl.level, ...sub };
-      }
-    }
-    return null;
+    if (!levelId) return null;
+    const [lvlNum, subNum] = levelId.split('-').map(Number);
+    const level = wordBank.find(l => l.level === lvlNum);
+    const sublevel = level?.sublevels.find(s => s.sublevel === subNum);
+    if (!level || !sublevel) return null;
+    return {
+      level: level.level,
+      sublevel: sublevel.sublevel,
+      description: sublevel.description,
+      option_buttons: sublevel.sounds.map(s => s.target_ipa),
+      sounds: sublevel.sounds,
+    };
   }, [levelId]);
 
   // --- Combo Animation Logic ---
@@ -79,25 +83,12 @@ export default function GameScreen() {
   const shuffledWords = useMemo(() => {
     if (!currentRule) return [];
 
-    const levelData = wordBank.find(l => l.level === currentRule.level);
-    if (!levelData) return [];
-
-    const sublevelData = levelData.sublevels.find(s => s.sublevel === currentRule.sublevel);
-    if (!sublevelData) return [];
-
     let availableWords: any[] = [];
-    
-    sublevelData.sounds.forEach(soundGroup => {
-      if (currentRule.option_buttons.includes(soundGroup.target_ipa)) {
-        soundGroup.words.forEach(wordObj => {
-          availableWords.push({
-            ...wordObj,
-            target_ipa: soundGroup.target_ipa
-          });
-        });
-      }
+    currentRule.sounds.forEach(soundGroup => {
+      soundGroup.words.forEach(wordObj => {
+        availableWords.push({ ...wordObj, target_ipa: soundGroup.target_ipa });
+      });
     });
-
     return shuffle(availableWords).slice(0, WORDS_PER_SESSION);
   }, [currentRule]);
 

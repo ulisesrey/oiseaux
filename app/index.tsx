@@ -2,7 +2,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { Check, Flame, Heart, Lock, Star } from 'lucide-react-native';
 import React, { useCallback, useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import practiceRules from '../data/practiceRules.json';
+import wordBank from '../data/wordBank.json';
 import { layoutStyles } from '../styles/layout';
 import { colors } from '../styles/theme'; // Fixed import path!
 import { getUserStats, UserStats } from '../utils/storage';
@@ -25,7 +25,9 @@ export default function MainMenu() {
   );
 
   const flatSublevels = useMemo(() => {
-    return practiceRules.flatMap(level => level.sublevels);
+    return wordBank.flatMap(level =>
+      level.sublevels.map(s => ({ ...s, id: `${level.level}-${s.sublevel}` }))
+    );
   }, []);
 
   if (!stats) return null;
@@ -51,7 +53,7 @@ export default function MainMenu() {
       {/* --- THE PATH --- */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         
-        {practiceRules.map((levelBlock) => (
+        {wordBank.map((levelBlock) => (
           <View key={`level-${levelBlock.level}`} style={styles.levelBlockWrapper}>
             
             {/* Section Header */}
@@ -61,19 +63,20 @@ export default function MainMenu() {
 
             {/* Nodes */}
             {levelBlock.sublevels.map((sublevel) => {
-              const absoluteIndex = flatSublevels.findIndex(s => s.id === sublevel.id);
+              const id = `${levelBlock.level}-${sublevel.sublevel}`;
+              const absoluteIndex = flatSublevels.findIndex(s => s.id === id);
               const isFirstNode = absoluteIndex === 0;
               const prevNode = isFirstNode ? null : flatSublevels[absoluteIndex - 1];
               
               const isUnlocked = isFirstNode || (stats.progress && stats.progress[prevNode!.id] > 0);
-              const isCompleted = stats.progress && stats.progress[sublevel.id] > 0;
+              const isCompleted = stats.progress && stats.progress[id] > 0;
               const isCurrent = isUnlocked && !isCompleted;
 
               const translateX = Math.sin(absoluteIndex * 0.9) * 60;
 
               return (
                 <View 
-                  key={sublevel.id} 
+                  key={id} 
                   style={[styles.nodeWrapper, { transform: [{ translateX }] }]}
                 >
                   
@@ -89,7 +92,7 @@ export default function MainMenu() {
                     ]}
                     onPress={() => router.push({
                       pathname: "/game",
-                      params: { levelId: sublevel.id }
+                      params: { levelId: id }
                     })}
                   >
                     {isCompleted ? (
@@ -104,7 +107,7 @@ export default function MainMenu() {
                   {/* The Level Label */}
                   <View style={styles.nodeLabelContainer}>
                     <Text style={[styles.nodeLabel, !isUnlocked && styles.nodeLabelLocked]}>
-                      {sublevel.title}
+                      {sublevel.description}
                     </Text>
                   </View>
 

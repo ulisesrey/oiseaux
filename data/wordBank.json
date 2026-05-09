@@ -1,6 +1,7 @@
 [
   {
     "level": 1,
+    "level_title": "Niveau 1: Les bases",
     "sublevels": [
       {
         "sublevel": 1,
@@ -9,23 +10,27 @@
           {
             "target_ipa": "/y/",
             "words": [
-              { "word": "tu", "underlined_indices": [1, 2] },
-              { "word": "rue", "underlined_indices": [1, 3] },
-              { "word": "bu", "underlined_indices": [1, 2] },
-              { "word": "su", "underlined_indices": [1, 2] },
+              { "word": "lu", "underlined_indices": [1, 2] },
               { "word": "vue", "underlined_indices": [1, 3] },
-              { "word": "mur", "underlined_indices": [1, 2] }
+              { "word": "su", "underlined_indices": [1, 2] },
+              { "word": "rue", "underlined_indices": [1, 3] },
+              { "word": "nu", "underlined_indices": [1, 2] },
+              { "word": "dure", "underlined_indices": [1, 2] },
+              { "word": "pure", "underlined_indices": [1, 2] },
+              { "word": "mule", "underlined_indices": [1, 2] }
             ]
           },
           {
             "target_ipa": "/i/",
             "words": [
-              { "word": "rit", "underlined_indices": [1, 2] },
               { "word": "lit", "underlined_indices": [1, 2] },
-              { "word": "si", "underlined_indices": [1, 2] },
               { "word": "vie", "underlined_indices": [1, 3] },
-              { "word": "mille", "underlined_indices": [1, 2] },
-              { "word": "vite", "underlined_indices": [1, 2] }
+              { "word": "si", "underlined_indices": [1, 2] },
+              { "word": "riz", "underlined_indices": [1, 2] },
+              { "word": "nid", "underlined_indices": [1, 2] },
+              { "word": "dire", "underlined_indices": [1, 2] },
+              { "word": "pire", "underlined_indices": [1, 2] },
+              { "word": "mille", "underlined_indices": [1, 2] }
             ]
           }
         ]
@@ -42,46 +47,28 @@
               { "word": "jus", "underlined_indices": [1, 2] },
               { "word": "sur", "underlined_indices": [1, 2] },
               { "word": "pur", "underlined_indices": [1, 2] },
-              { "word": "vue", "underlined_indices": [1, 3] }
+              { "word": "vue", "underlined_indices": [1, 3] },
+              { "word": "su", "underlined_indices": [1, 2] },
+              { "word": "bu", "underlined_indices": [1, 2] },
+              { "word": "lu", "underlined_indices": [1, 2] },
+              { "word": "du", "underlined_indices": [1, 2] },
+              { "word": "pu", "underlined_indices": [1, 2] }
             ]
           },
           {
             "target_ipa": "/u/",
             "words": [
-              { "word": "tout", "underlined_indices": [1, 4] },
+              { "word": "tout", "underlined_indices": [1, 3] },
               { "word": "roue", "underlined_indices": [1, 4] },
               { "word": "joue", "underlined_indices": [1, 4] },
-              { "word": "sou", "underlined_indices": [1, 3] },
+              { "word": "sourd", "underlined_indices": [1, 3] },
               { "word": "pour", "underlined_indices": [1, 3] },
-              { "word": "vous", "underlined_indices": [1, 3] }
-            ]
-          }
-        ]
-      },
-      {
-        "sublevel": 3,
-        "description": "i vs u",
-        "sounds": [
-          {
-            "target_ipa": "/i/",
-            "words": [
-              { "word": "lit", "underlined_indices": [1, 2] },
-              { "word": "vie", "underlined_indices": [1, 3] },
-              { "word": "si", "underlined_indices": [1, 2] },
-              { "word": "mille", "underlined_indices": [1, 2] },
-              { "word": "dire", "underlined_indices": [1, 2] },
-              { "word": "vite", "underlined_indices": [1, 2] }
-            ]
-          },
-          {
-            "target_ipa": "/u/",
-            "words": [
-              { "word": "sou", "underlined_indices": [1, 3] },
+              { "word": "vous", "underlined_indices": [1, 3] },
+              { "word": "sous", "underlined_indices": [1, 3] },
+              { "word": "boue", "underlined_indices": [1, 4] },
               { "word": "loup", "underlined_indices": [1, 3] },
-              { "word": "boue", "underlined_indices": [1, 3] },
-              { "word": "poule", "underlined_indices": [1, 3] },
-              { "word": "pour", "underlined_indices": [1, 3] },
-              { "word": "vous", "underlined_indices": [1, 3] }
+              { "word": "doux", "underlined_indices": [1, 3] },
+              { "word": "pou", "underlined_indices": [1, 3] }
             ]
           }
         ]
@@ -90,31 +77,536 @@
   },
   {
     "level": 2,
+    "level_title": "Niveau 2: Les e",
     "sublevels": [
       {
         "sublevel": 1,
-        "description": "extended y and u vocabulary",
+        "description": "e vs è (le vs lait)",
         "sounds": [
           {
-            "target_ipa": "/y/",
+            "target_ipa": "/ɛ/",
             "words": [
-              { "word": "lune", "underlined_indices": [1, 2] },
-              { "word": "plus", "underlined_indices": [2, 3] },
-              { "word": "nature", "underlined_indices": [3, 4] },
-              { "word": "lute", "underlined_indices": [1, 2] }
+              { "word": "lait", "underlined_indices": [1, 4] },
+              { "word": "laid", "underlined_indices": [1, 4] },
+              { "word": "mais", "underlined_indices": [1, 4] },
+              { "word": "met", "underlined_indices": [1, 3] },
+              { "word": "tait", "underlined_indices": [1, 4] },
+              { "word": "sait", "underlined_indices": [1, 4] },
+              { "word": "dès", "underlined_indices": [1, 3] },
+              { "word": "quai", "underlined_indices": [2, 4] },
+              { "word": "naît", "underlined_indices": [1, 4] }
             ]
           },
           {
-            "target_ipa": "/u/",
+            "target_ipa": "/ə/",
             "words": [
-              { "word": "mourir", "underlined_indices": [1, 3] },
-              { "word": "nouveaux", "underlined_indices": [1, 3] },
-              { "word": "souris", "underlined_indices": [1, 3] },
-              { "word": "lourd", "underlined_indices": [1, 3] }
+              { "word": "le", "underlined_indices": [1, 2] },
+              { "word": "me", "underlined_indices": [1, 2] },
+              { "word": "te", "underlined_indices": [1, 2] },
+              { "word": "se", "underlined_indices": [1, 2] },
+              { "word": "ce", "underlined_indices": [1, 2] },
+              { "word": "de", "underlined_indices": [1, 2] },
+              { "word": "que", "underlined_indices": [2, 3] },
+              { "word": "ne", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "é vs e (les vs le)",
+        "sounds": [
+          {
+            "target_ipa": "/e/",
+            "words": [
+              { "word": "les", "underlined_indices": [1, 3] },
+              { "word": "des", "underlined_indices": [1, 3] },
+              { "word": "mes", "underlined_indices": [1, 3] },
+              { "word": "tes", "underlined_indices": [1, 3] },
+              { "word": "ses", "underlined_indices": [1, 3] },
+              { "word": "ces", "underlined_indices": [1, 3] }
+            ]
+          },
+          {
+            "target_ipa": "/ə/",
+            "words": [
+              { "word": "le", "underlined_indices": [1, 2] },
+              { "word": "de", "underlined_indices": [1, 2] },
+              { "word": "me", "underlined_indices": [1, 2] },
+              { "word": "te", "underlined_indices": [1, 2] },
+              { "word": "se", "underlined_indices": [1, 2] },
+              { "word": "ce", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 3,
+        "description": "é vs è (fée vs fait)",
+        "sounds": [
+          {
+            "target_ipa": "/e/",
+            "words": [
+              { "word": "fée", "underlined_indices": [1, 3] },
+              { "word": "dé", "underlined_indices": [1, 2] },
+              { "word": "pré", "underlined_indices": [2, 3] },
+              { "word": "thé", "underlined_indices": [2, 3] },
+              { "word": "nez", "underlined_indices": [1, 3] },
+              { "word": "clef", "underlined_indices": [2, 4] },
+              { "word": "mes", "underlined_indices": [1, 3] }
+            ]
+          },
+          {
+            "target_ipa": "/ɛ/",
+            "words": [
+              { "word": "fait", "underlined_indices": [1, 4] },
+              { "word": "dès", "underlined_indices": [1, 3] },
+              { "word": "près", "underlined_indices": [2, 4] },
+              { "word": "taie", "underlined_indices": [1, 4] },
+              { "word": "naît", "underlined_indices": [1, 4] },
+              { "word": "claie", "underlined_indices": [2, 5] },
+              { "word": "mais", "underlined_indices": [1, 4] }
             ]
           }
         ]
       }
     ]
-  }
-]
+  },
+  {
+    "level": 3,
+    "level_title": "Niveau 3: Les e",
+    "sublevels": [
+      {
+        "sublevel": 1,
+        "description": "é vs eu fermé (fée vs feu)",
+        "sounds": [
+          {
+            "target_ipa": "/e/",
+            "words": [
+              { "word": "fée", "underlined_indices": [1, 3] },
+              { "word": "dé", "underlined_indices": [1, 2] },
+              { "word": "pré", "underlined_indices": [2, 3] },
+              { "word": "nez", "underlined_indices": [1, 3] },
+              { "word": "ces", "underlined_indices": [1, 3] }
+            ]
+          },
+          {
+            "target_ipa": "/ø/",
+            "words": [
+              { "word": "feu", "underlined_indices": [1, 3] },
+              { "word": "deux", "underlined_indices": [1, 4] },
+              { "word": "peu", "underlined_indices": [1, 3] },
+              { "word": "nœud", "underlined_indices": [1, 4] },
+              { "word": "ceux", "underlined_indices": [1, 4] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "è vs eu ouvert (mer vs meurt)",
+        "sounds": [
+          {
+            "target_ipa": "/ɛ/",
+            "words": [
+              { "word": "père", "underlined_indices": [1, 2] },
+              { "word": "mer", "underlined_indices": [1, 2] },
+              { "word": "sel", "underlined_indices": [1, 2] },
+              { "word": "serre", "underlined_indices": [1, 2] },
+              { "word": "lèvre", "underlined_indices": [1, 2] }
+            ]
+          },
+          {
+            "target_ipa": "/œ/",
+            "words": [
+              { "word": "peur", "underlined_indices": [1, 3] },
+              { "word": "meurt", "underlined_indices": [1, 3] },
+              { "word": "seul", "underlined_indices": [1, 3] },
+              { "word": "sœur", "underlined_indices": [1, 3] },
+              { "word": "louvre", "underlined_indices": [1, 3] } 
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 3,
+        "description": "eu fermé vs eu ouvert (deux vs neuf)",
+        "sounds": [
+          {
+            "target_ipa": "/ø/",
+            "words": [
+              { "word": "deux", "underlined_indices": [1, 4] },
+              { "word": "bleu", "underlined_indices": [2, 4] },
+              { "word": "queue", "underlined_indices": [2, 5] },
+              { "word": "vœu", "underlined_indices": [1, 3] },
+              { "word": "creux", "underlined_indices": [2, 5] }
+            ]
+          },
+          {
+            "target_ipa": "/œ/",
+            "words": [
+              { "word": "neuf", "underlined_indices": [1, 3] },
+              { "word": "bœuf", "underlined_indices": [1, 3] },
+              { "word": "cœur", "underlined_indices": [1, 3] },
+              { "word": "fleur", "underlined_indices": [2, 4] },
+              { "word": "œuf", "underlined_indices": [0, 2] }
+            ]
+          }
+        ]
+      }
+]},
+{
+    "level": 4,
+    "level_title": "Niveau 4: Les voyelles orales",
+    "sublevels": [
+      {
+        "sublevel": 1,
+        "description": "i vs e (si vs ce)",
+        "sounds": [
+          {
+            "target_ipa": "/i/",
+            "words": [
+              { "word": "si", "underlined_indices": [1, 2] },
+              { "word": "mi", "underlined_indices": [1, 2] },
+              { "word": "ni", "underlined_indices": [1, 2] },
+              { "word": "riz", "underlined_indices": [1, 2] },
+              { "word": "lit", "underlined_indices": [1, 2] },
+              { "word": "fit", "underlined_indices": [1, 2] }
+            ]
+          },
+          {
+            "target_ipa": "/e/",
+            "words": [
+              { "word": "ces", "underlined_indices": [1, 3] },
+              { "word": "mes", "underlined_indices": [1, 3] },
+              { "word": "nez", "underlined_indices": [1, 3] },
+              { "word": "les", "underlined_indices": [1, 3] },
+              { "word": "clef", "underlined_indices": [2, 4] },
+              { "word": "fée", "underlined_indices": [1, 3] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "o vs ou (dos vs doux)",
+        "sounds": [
+          {
+            "target_ipa": "/o/",
+            "words": [
+              { "word": "dos", "underlined_indices": [1, 2] },
+              { "word": "tôt", "underlined_indices": [1, 2] },
+              { "word": "sot", "underlined_indices": [1, 2] },
+              { "word": "mot", "underlined_indices": [1, 2] },
+              { "word": "pot", "underlined_indices": [1, 2] },
+              { "word": "lot", "underlined_indices": [1, 2] }
+            ]
+          },
+          {
+            "target_ipa": "/u/",
+            "words": [
+              { "word": "doux", "underlined_indices": [1, 3] },
+              { "word": "tout", "underlined_indices": [1, 3] },
+              { "word": "sous", "underlined_indices": [1, 3] },
+              { "word": "mou", "underlined_indices": [1, 3] },
+              { "word": "pou", "underlined_indices": [1, 3] },
+              { "word": "loup", "underlined_indices": [1, 3] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 3,
+        "description": "o vs ɔ (saule vs sol)",
+        "sounds": [
+          {
+            "target_ipa": "/o/",
+            "words": [
+              { "word": "saule", "underlined_indices": [1, 2] },
+              { "word": "tôt", "underlined_indices": [1, 2] },
+              { "word": "côte", "underlined_indices": [1, 2] },
+              { "word": "pôle", "underlined_indices": [1, 2] },
+              { "word": "rôle", "underlined_indices": [1, 2] },
+              { "word": "mole", "underlined_indices": [1, 2] }
+            ]
+          },
+          {
+            "target_ipa": "/ɔ/",
+            "words": [
+              { "word": "sol", "underlined_indices": [1, 2] },
+              { "word": "tort", "underlined_indices": [1, 2] },
+              { "word": "cote", "underlined_indices": [1, 2] },
+              { "word": "pole", "underlined_indices": [1, 2] },
+              { "word": "role", "underlined_indices": [1, 2] },
+              { "word": "mol", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 4,
+        "description": "a vs ɑ (patte vs pâte)",
+        "sounds": [
+          {
+            "target_ipa": "/a/",
+            "words": [
+              { "word": "patte", "underlined_indices": [1, 2] },
+              { "word": "tache", "underlined_indices": [1, 2] },
+              { "word": "sale", "underlined_indices": [1, 2] },
+              { "word": "malle", "underlined_indices": [1, 2] },
+              { "word": "balle", "underlined_indices": [1, 2] },
+              { "word": "cane", "underlined_indices": [1, 2] }
+            ]
+          },
+          {
+            "target_ipa": "/ɑ/",
+            "words": [
+              { "word": "pâte", "underlined_indices": [1, 2] },
+              { "word": "tâche", "underlined_indices": [1, 2] },
+              { "word": "sâle", "underlined_indices": [1, 2] },
+              { "word": "mâle", "underlined_indices": [1, 2] },
+              { "word": "bâle", "underlined_indices": [1, 2] },
+              { "word": "cane", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "level_title": "Niveau 5: eu vs voyelles orales",
+    "sublevels": [
+      {
+        "sublevel": 1,
+        "description": "eu fermé vs o (feu vs faux)",
+        "sounds": [
+          {
+            "target_ipa": "/ø/",
+            "words": [
+              { "word": "feu", "underlined_indices": [1, 3] },
+              { "word": "deux", "underlined_indices": [1, 4] },
+              { "word": "peu", "underlined_indices": [1, 3] },
+              { "word": "nœud", "underlined_indices": [1, 4] },
+              { "word": "ceux", "underlined_indices": [1, 4] }
+            ]
+          },
+          {
+            "target_ipa": "/o/",
+            "words": [
+              { "word": "faux", "underlined_indices": [1, 4] },
+              { "word": "dos", "underlined_indices": [1, 2] },
+              { "word": "pot", "underlined_indices": [1, 2] },
+              { "word": "nos", "underlined_indices": [1, 2] },
+              { "word": "sot", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "eu ouvert vs o ouvert (sœur vs sort)",
+        "sounds": [
+          {
+            "target_ipa": "/œ/",
+            "words": [
+              { "word": "sœur", "underlined_indices": [1, 3] },
+              { "word": "peur", "underlined_indices": [1, 3] },
+              { "word": "seul", "underlined_indices": [1, 3] },
+              { "word": "meurt", "underlined_indices": [1, 3] },
+              { "word": "bœuf", "underlined_indices": [1, 3] }
+            ]
+          },
+          {
+            "target_ipa": "/ɔ/",
+            "words": [
+              { "word": "sort", "underlined_indices": [1, 2] },
+              { "word": "port", "underlined_indices": [1, 2] },
+              { "word": "sol", "underlined_indices": [1, 2] },
+              { "word": "mort", "underlined_indices": [1, 2] },
+              { "word": "bof", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+{
+    "level": 6,
+    "level_title": "Niveau 6 : eu vs o",
+    "sublevels": [
+      {
+        "sublevel": 1,
+        "description": "eu fermé vs o (feu vs faux)",
+        "sounds": [
+          {
+            "target_ipa": "/ø/",
+            "words": [
+              { "word": "feu", "underlined_indices": [1, 3] },
+              { "word": "deux", "underlined_indices": [1, 4] },
+              { "word": "peu", "underlined_indices": [1, 3] },
+              { "word": "nœud", "underlined_indices": [1, 4] },
+              { "word": "ceux", "underlined_indices": [1, 4] }
+            ]
+          },
+          {
+            "target_ipa": "/o/",
+            "words": [
+              { "word": "faux", "underlined_indices": [1, 4] },
+              { "word": "dos", "underlined_indices": [1, 2] },
+              { "word": "pot", "underlined_indices": [1, 2] },
+              { "word": "nos", "underlined_indices": [1, 2] },
+              { "word": "sot", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "eu ouvert vs o ouvert (sœur vs sort)",
+        "sounds": [
+          {
+            "target_ipa": "/œ/",
+            "words": [
+              { "word": "sœur", "underlined_indices": [1, 3] },
+              { "word": "peur", "underlined_indices": [1, 3] },
+              { "word": "seul", "underlined_indices": [1, 3] },
+              { "word": "meurt", "underlined_indices": [1, 3] },
+              { "word": "bœuf", "underlined_indices": [1, 3] }
+            ]
+          },
+          {
+            "target_ipa": "/ɔ/",
+            "words": [
+              { "word": "sort", "underlined_indices": [1, 2] },
+              { "word": "port", "underlined_indices": [1, 2] },
+              { "word": "sol", "underlined_indices": [1, 2] },
+              { "word": "mort", "underlined_indices": [1, 2] },
+              { "word": "bof", "underlined_indices": [1, 2] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "level": 7,
+    "level_title": "Niveau 7 : Les voyelles nasales",
+    "sublevels": [
+      {
+        "sublevel": 1,
+        "description": "an/en vs on (vent vs vont)",
+        "sounds": [
+          {
+            "target_ipa": "/ɑ̃/",
+            "words": [
+              { "word": "vent", "underlined_indices": [1, 3] },
+              { "word": "banc", "underlined_indices": [1, 3] },
+              { "word": "sang", "underlined_indices": [1, 3] },
+              { "word": "lent", "underlined_indices": [1, 3] },
+              { "word": "temps", "underlined_indices": [1, 3] }
+            ]
+          },
+          {
+            "target_ipa": "/ɔ̃/",
+            "words": [
+              { "word": "vont", "underlined_indices": [1, 3] },
+              { "word": "bon", "underlined_indices": [1, 3] },
+              { "word": "son", "underlined_indices": [1, 3] },
+              { "word": "long", "underlined_indices": [1, 3] },
+              { "word": "ton", "underlined_indices": [1, 3] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "in/ain vs an/en (vin vs vent)",
+        "sounds": [
+          {
+            "target_ipa": "/ɛ̃/",
+            "words": [
+              { "word": "vin", "underlined_indices": [1, 3] },
+              { "word": "bain", "underlined_indices": [1, 4] },
+              { "word": "fin", "underlined_indices": [1, 3] },
+              { "word": "sain", "underlined_indices": [1, 4] },
+              { "word": "plein", "underlined_indices": [2, 5] }
+            ]
+          },
+          {
+            "target_ipa": "/ɑ̃/",
+            "words": [
+              { "word": "vent", "underlined_indices": [1, 3] },
+              { "word": "banc", "underlined_indices": [1, 3] },
+              { "word": "faon", "underlined_indices": [1, 4] },
+              { "word": "sans", "underlined_indices": [1, 3] },
+              { "word": "plan", "underlined_indices": [2, 4] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+    {
+    "level": 8,
+    "level_title": "Niveau 8 : Les consonnes",
+    "sublevels": [
+      {
+        "sublevel": 1,
+        "description": "s dur vs z (poisson vs poison)",
+        "sounds": [
+          {
+            "target_ipa": "/s/",
+            "words": [
+              { "word": "poisson", "underlined_indices": [3, 5] },
+              { "word": "dessert", "underlined_indices": [2, 4] },
+              { "word": "coussin", "underlined_indices": [3, 5] },
+              { "word": "baisser", "underlined_indices": [3, 5] },
+              { "word": "russe", "underlined_indices": [2, 4] },
+              { "word": "visse", "underlined_indices": [2, 4] }
+            ]
+          },
+          {
+            "target_ipa": "/z/",
+            "words": [
+              { "word": "poison", "underlined_indices": [3, 4] },
+              { "word": "désert", "underlined_indices": [2, 3] },
+              { "word": "cousin", "underlined_indices": [3, 4] },
+              { "word": "baiser", "underlined_indices": [3, 4] },
+              { "word": "ruse", "underlined_indices": [2, 3] },
+              { "word": "vise", "underlined_indices": [2, 3] }
+            ]
+          }
+        ]
+      },
+      {
+        "sublevel": 2,
+        "description": "ch vs j (cache vs cage)",
+        "sounds": [
+          {
+            "target_ipa": "/ʃ/",
+            "words": [
+              { "word": "chou", "underlined_indices": [0, 2] },
+              { "word": "cache", "underlined_indices": [2, 4] },
+              { "word": "hache", "underlined_indices": [2, 4] },
+              { "word": "char", "underlined_indices": [0, 2] },
+              { "word": "bouche", "underlined_indices": [3, 5] },
+              { "word": "champ", "underlined_indices": [0, 2] }
+            ]
+          },
+          {
+            "target_ipa": "/ʒ/",
+            "words": [
+              { "word": "joue", "underlined_indices": [0, 1] },
+              { "word": "cage", "underlined_indices": [2, 3] },
+              { "word": "âge", "underlined_indices": [1, 2] },
+              { "word": "jarre", "underlined_indices": [0, 1] },
+              { "word": "bouge", "underlined_indices": [3, 4] },
+              { "word": "gens", "underlined_indices": [0, 1] }
+            ]
+          }
+        ]
+      }
+    ]
+  }  
+    ]
