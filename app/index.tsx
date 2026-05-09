@@ -18,13 +18,13 @@ export default function MainMenu() {
   useFocusEffect(
     useCallback(() => {
       loadStats();
+      // Just a quick reminder: this is still checking every 10 seconds! 
+      // If you meant to change it to daily, you can do it here later.
       const interval = setInterval(loadStats, 10000);
       return () => clearInterval(interval);
     }, [])
   );
 
-  // We flatten the sublevels to easily figure out the "absolute" order 
-  // (so we know if the exact previous level was completed)
   const flatSublevels = useMemo(() => {
     return practiceRules.flatMap(level => level.sublevels);
   }, []);
@@ -32,7 +32,7 @@ export default function MainMenu() {
   if (!stats) return null;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={styles.safeArea}>
       {/* --- HEADER HUD --- */}
       <View style={layoutStyles.headerContainer}>
         <View style={layoutStyles.statItem}>
@@ -50,10 +50,10 @@ export default function MainMenu() {
       </View>
 
       {/* --- THE PATH --- */}
-      <ScrollView contentContainerStyle={{ paddingVertical: 40, alignItems: 'center' }}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         
-        {practiceRules.map((levelBlock, blockIndex) => (
-          <View key={`level-${levelBlock.level}`} style={{ width: '100%', alignItems: 'center', marginBottom: 20 }}>
+        {practiceRules.map((levelBlock) => (
+          <View key={`level-${levelBlock.level}`} style={styles.levelBlockWrapper}>
             
             {/* Section Header */}
             <View style={styles.sectionHeader}>
@@ -62,24 +62,21 @@ export default function MainMenu() {
 
             {/* Nodes */}
             {levelBlock.sublevels.map((sublevel) => {
-              // Find where we are in the grand scheme of things
               const absoluteIndex = flatSublevels.findIndex(s => s.id === sublevel.id);
               const isFirstNode = absoluteIndex === 0;
-              
               const prevNode = isFirstNode ? null : flatSublevels[absoluteIndex - 1];
               
-              // Logic: Unlocked if it's the very first node, OR if the previous node has progress > 0
               const isUnlocked = isFirstNode || (stats.progress && stats.progress[prevNode!.id] > 0);
               const isCompleted = stats.progress && stats.progress[sublevel.id] > 0;
-              
-              // Is this the "Current" level? (Unlocked, but not completed yet)
               const isCurrent = isUnlocked && !isCompleted;
 
-              // The magic math that makes the path zigzag!
               const translateX = Math.sin(absoluteIndex * 0.9) * 60;
 
               return (
-                <View key={sublevel.id} style={{ alignItems: 'center', marginVertical: 15, transform: [{ translateX }] }}>
+                <View 
+                  key={sublevel.id} 
+                  style={[styles.nodeWrapper, { transform: [{ translateX }] }]} // Transform stays inline!
+                >
                   
                   {/* The Circular Button */}
                   <TouchableOpacity 
@@ -93,7 +90,7 @@ export default function MainMenu() {
                     ]}
                     onPress={() => router.push({
                       pathname: "/game",
-                      params: { levelId: sublevel.id } // Passing the ID string now!
+                      params: { levelId: sublevel.id }
                     })}
                   >
                     {isCompleted ? (
@@ -105,9 +102,9 @@ export default function MainMenu() {
                     )}
                   </TouchableOpacity>
 
-                  {/* The Level Label (Hidden if locked to keep mystery, or show if you prefer) */}
+                  {/* The Level Label */}
                   <View style={styles.nodeLabelContainer}>
-                    <Text style={[styles.nodeLabel, !isUnlocked && { color: '#bbb' }]}>
+                    <Text style={[styles.nodeLabel, !isUnlocked && styles.nodeLabelLocked]}>
                       {sublevel.title}
                     </Text>
                   </View>
@@ -122,8 +119,28 @@ export default function MainMenu() {
   );
 }
 
-// Custom styles just for this path layout
+// --- STYLES ---
 const styles = StyleSheet.create({
+  // Extracted Styles
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scrollContent: {
+    paddingVertical: 40,
+    alignItems: 'center',
+  },
+  levelBlockWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  nodeWrapper: {
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  
+  // Existing Styles
   sectionHeader: {
     backgroundColor: '#58CC02',
     paddingVertical: 12,
@@ -146,7 +163,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 4,
-    // Add a shadow to make it pop like a 3D button
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
@@ -154,13 +170,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   nodeCompleted: {
-    backgroundColor: '#FFD700', // Gold
+    backgroundColor: '#FFD700',
     borderColor: '#E5C100',
   },
   nodeCurrent: {
-    backgroundColor: '#58CC02', // Duolingo Green
+    backgroundColor: '#58CC02',
     borderColor: '#4BAA00',
-    transform: [{ scale: 1.1 }], // Make the current one slightly bigger!
+    transform: [{ scale: 1.1 }],
   },
   nodeLocked: {
     backgroundColor: '#E5E5E5',
@@ -179,5 +195,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#4B4B4B',
+  },
+  nodeLabelLocked: {
+    color: '#bbb',
   }
 });
