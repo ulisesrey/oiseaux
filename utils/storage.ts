@@ -42,7 +42,7 @@ export const getUserStats = async (): Promise<UserStats> => {
     // 1000 ms * 60 sec * 60 min * 24 hrs = 1 day
     const REFRESH_RATE = 60 * 60 * 1000; // 1h
     if (Date.now() - stats.lastHeartRefresh > REFRESH_RATE && stats.lives < 5) {
-      stats.lives = 5;
+      stats.lives = 5; // Change to stats.lives + 1 ?
       stats.lastHeartRefresh = Date.now();
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
     }
