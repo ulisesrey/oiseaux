@@ -1,3 +1,6 @@
+# Variables
+PLATFORM ?= android
+
 # Default action
 all: help
 
@@ -12,11 +15,7 @@ help:
 install:
 	npm install
 
-## build: Run a local EAS production build
-# Variables
-PLATFORM = android
-
-# development will be linked
+## build-development: Run a local EAS development build
 build-development:
 	@echo "Starting local development build for $(PLATFORM)..."
 	eas build --profile development --platform $(PLATFORM) --local
@@ -45,6 +44,6 @@ clean:
 ## dev: Run the development server (can't use expo go unless expo go mode (pres "s" to switch between modes))
 dev:
 	npx expo start
-	@echo "!! Can't use expo go unless expo go mode (pres "s" to switch between modes)"
+	@echo '!! Cannot use Expo Go unless Expo Go mode (press "s" to switch modes)'
 
-.PHONY: all help install build deploy-web clean dev
+.PHONY: all help install build-development build-preview build-production deploy-web clean dev
