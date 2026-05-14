@@ -115,9 +115,9 @@ export default function GameScreen() {
   const currentWord = shuffledWords[wordIdx];
 
   // --- The Audio Playback Function ---
-const playWordAudio = async () => {
+  const playWordAudio = async () => {
     try {
-      // 1. Look up the word in our generated map
+      // Look up the word in our generated map
       const audioResource = audioMap[currentWord.word];
 
       if (!audioResource) {
@@ -125,7 +125,7 @@ const playWordAudio = async () => {
         return;
       }
 
-      // 2. Load and play the local file
+      // Load and play the local file
       const { sound: newSound } = await Audio.Sound.createAsync(
         audioResource,
         { shouldPlay: true }
@@ -137,21 +137,19 @@ const playWordAudio = async () => {
     }
   };
 
-  // Optional: Auto-play when the word changes
+  // Auto-play audio when the word appears (with safety cleanup!)
   useEffect(() => {
     if (currentWord && !isFinished) {
       // Add a tiny delay so the UI loads before the sound blasts
-      setTimeout(() => playWordAudio(), 300); 
-    }
-  }, [wordIdx, currentWord]);
+      const timer = setTimeout(() => {
+        playWordAudio();
+      }, 300); 
 
-  // Auto-play audio when the word appears (Optional, but good for language apps)
-  useEffect(() => {
-    if (currentWord && !isFinished) {
-      // Uncomment the line below if you want it to play automatically
-      // playWordAudio(); 
+      // If the component unmounts or changes BEFORE 300ms, cancel the timer
+      return () => clearTimeout(timer);
     }
-  }, [wordIdx, currentWord]);
+  }, [wordIdx, currentWord, isFinished]);
+
 
   const handlePress = async (choice: string) => {
     if (feedback.choice || isFinished || lives <= 0) return;
