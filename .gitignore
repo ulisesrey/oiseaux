@@ -44,3 +44,4 @@ app-example
 build**.apk
 build**.aab
 extra_files/*
+assets/audio/**
