@@ -1,11 +1,12 @@
+import { Audio } from 'expo-av';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, Heart } from 'lucide-react-native';
+import { ArrowLeft, Heart, Volume2 } from 'lucide-react-native';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Animated, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { audioMap } from '../data/audioMap';
 import wordBank from '../data/wordBank.json';
 import { useCombo } from '../hooks/useCombo';
-import { layoutStyles } from '../styles/layout';
-import { colors, theme as styles } from '../styles/theme'; // <-- Imported colors here!
+import { colors, theme as styles } from '../styles/theme';
 import { addStars, getUserStats, saveLevelCompletion, updateLives } from '../utils/storage';
 
 const WORDS_PER_SESSION = 5;
@@ -36,25 +37,23 @@ const renderWord = (word: string, indices: number[]) => {
 
 export default function GameScreen() {
   const router = useRouter();
-  
   const { levelId } = useLocalSearchParams<{ levelId: string }>();
 
-  const currentRule = useMemo(() => {
-    if (!levelId) return null;
-    const [lvlNum, subNum] = levelId.split('-').map(Number);
-    const level = wordBank.find(l => l.level === lvlNum);
-    const sublevel = level?.sublevels.find(s => s.sublevel === subNum);
-    if (!level || !sublevel) return null;
-    return {
-      level: level.level,
-      sublevel: sublevel.sublevel,
-      description: sublevel.description,
-      option_buttons: sublevel.sounds.map(s => s.target_ipa),
-      sounds: sublevel.sounds,
-    };
+  const currentLevelData = useMemo(() => {
+    for (const lvl of wordBank) {
+      const sub = lvl.sublevels.find(s => `${lvl.level}-${s.sublevel}` === levelId);
+      if (sub) {
+        return {
+          id: levelId,
+          option_buttons: sub.sounds.map(soundGroup => soundGroup.target_ipa),
+          sounds: sub.sounds
+        };
+      }
+    }
+    return null;
   }, [levelId]);
 
-  // --- Combo Animation Logic ---
+  // --- Animation Logic ---
   const animScale = useRef(new Animated.Value(0.3)).current;
   const animOpacity = useRef(new Animated.Value(0)).current;
 
@@ -63,8 +62,8 @@ export default function GameScreen() {
     animOpacity.setValue(1);
     Animated.sequence([
       Animated.spring(animScale, { toValue: 1, friction: 4, tension: 40, useNativeDriver: true }),
-      Animated.delay(500),
-      Animated.timing(animOpacity, { toValue: 0, duration: 300, useNativeDriver: true }),
+      Animated.delay(100),
+      Animated.timing(animOpacity, { toValue: 0, duration: 200, useNativeDriver: true }),
     ]).start();
   };
 
@@ -75,24 +74,34 @@ export default function GameScreen() {
   const [lives, setLives] = useState(5);
   const [feedback, setFeedback] = useState<{choice: string | null, correct: boolean | null}>({ choice: null, correct: null });
   const [isFinished, setIsFinished] = useState(false);
+  
+  // --- Audio State ---
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
 
   useEffect(() => {
     getUserStats().then(stats => setLives(stats.lives));
   }, []);
 
-  const shuffledWords = useMemo(() => {
-    if (!currentRule) return [];
+  // Cleanup audio from memory when unmounting or changing words
+  useEffect(() => {
+    return sound ? () => { sound.unloadAsync(); } : undefined;
+  }, [sound]);
 
+  const shuffledWords = useMemo(() => {
+    if (!currentLevelData) return [];
     let availableWords: any[] = [];
-    currentRule.sounds.forEach(soundGroup => {
+    currentLevelData.sounds.forEach(soundGroup => {
       soundGroup.words.forEach(wordObj => {
-        availableWords.push({ ...wordObj, target_ipa: soundGroup.target_ipa });
+        availableWords.push({
+          ...wordObj,
+          target_ipa: soundGroup.target_ipa
+        });
       });
     });
     return shuffle(availableWords).slice(0, WORDS_PER_SESSION);
-  }, [currentRule]);
+  }, [currentLevelData]);
 
-  if (!currentRule || shuffledWords.length === 0) {
+  if (!currentLevelData || shuffledWords.length === 0) {
     return (
       <View style={[styles.container, { justifyContent: 'center' }]}>
         <Text style={styles.menuTitle}>Erreur de niveau</Text>
@@ -105,12 +114,50 @@ export default function GameScreen() {
 
   const currentWord = shuffledWords[wordIdx];
 
+  // --- The Audio Playback Function ---
+const playWordAudio = async () => {
+    try {
+      // 1. Look up the word in our generated map
+      const audioResource = audioMap[currentWord.word];
+
+      if (!audioResource) {
+        console.warn(`No audio file mapped for the word: ${currentWord.word}`);
+        return;
+      }
+
+      // 2. Load and play the local file
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        audioResource,
+        { shouldPlay: true }
+      );
+      setSound(newSound);
+      
+    } catch (error) {
+      console.log("Error playing audio:", error);
+    }
+  };
+
+  // Optional: Auto-play when the word changes
+  useEffect(() => {
+    if (currentWord && !isFinished) {
+      // Add a tiny delay so the UI loads before the sound blasts
+      setTimeout(() => playWordAudio(), 300); 
+    }
+  }, [wordIdx, currentWord]);
+
+  // Auto-play audio when the word appears (Optional, but good for language apps)
+  useEffect(() => {
+    if (currentWord && !isFinished) {
+      // Uncomment the line below if you want it to play automatically
+      // playWordAudio(); 
+    }
+  }, [wordIdx, currentWord]);
+
   const handlePress = async (choice: string) => {
     if (feedback.choice || isFinished || lives <= 0) return;
 
     const correct = choice === currentWord.target_ipa;
     setFeedback({ choice, correct });
-
     updateCombo(correct);
 
     if (correct) {
@@ -119,7 +166,7 @@ export default function GameScreen() {
           setWordIdx(prev => prev + 1);
           setFeedback({ choice: null, correct: null });
         } else {
-          setTimeout(finishGame, 300);
+          finishGame();
         }
       }, 700);
     } else {
@@ -133,15 +180,12 @@ export default function GameScreen() {
   const finishGame = async () => {
     const bonus = maxCombo * 10;
     await addStars(100 + bonus);
-    
-    if (levelId) {
-      await saveLevelCompletion(levelId); 
-    }
-    
+    if (levelId) await saveLevelCompletion(levelId); 
     setIsFinished(true);
   };
 
-  const progressPercent = ((wordIdx + (feedback.correct ? 1 : 0)) / WORDS_PER_SESSION) * 100;
+  const visualWordIdx = feedback.correct ? wordIdx + 1 : wordIdx;
+  const progressPercent = (visualWordIdx / WORDS_PER_SESSION) * 100;
 
   // --- Conditional Renders ---
   if (isFinished) {
@@ -151,7 +195,6 @@ export default function GameScreen() {
         <Text style={styles.menuTitle}>Niveau Terminé !</Text>
         <View style={{ marginVertical: 20, alignItems: 'center' }}>
           <Text style={styles.successSubtitle}>Score de base : 100 ⭐</Text>
-          {/* REPLACED: #FFD700 with colors.gold */}
           <Text style={[styles.successSubtitle, { color: colors.gold, fontWeight: 'bold' }]}>
             Bonus Combo (x{maxCombo}) : +{maxCombo * 10} ⭐
           </Text>
@@ -166,7 +209,6 @@ export default function GameScreen() {
   if (lives <= 0) {
     return (
       <View style={styles.container}>
-        {/* REPLACED: #FF4B4B with colors.heartRed */}
         <Heart color={colors.heartRed} size={80} fill={colors.heartRed} />
         <Text style={styles.menuTitle}>Mince !</Text>
         <Text style={styles.successSubtitle}>Vous n'avez plus de vies. Attendez un peu ou réessayez !</Text>
@@ -185,33 +227,42 @@ export default function GameScreen() {
         position: 'absolute', top: 120, zIndex: 10, width: '100%', alignItems: 'center',
         opacity: animOpacity, transform: [{ scale: animScale }] 
       }}>
-        {/* REPLACED: #FFD700 with colors.gold */}
         <Text style={{ fontSize: 36, fontWeight: '900', color: colors.gold, textShadowColor: 'rgba(0,0,0,0.5)', textShadowRadius: 4 }}>
           {combo} À LA SUITE ! 🔥
         </Text>
       </Animated.View>
 
-      <View style={[layoutStyles.hud, { flexDirection: 'column', gap: 8 }]}>
-        <View style={layoutStyles.progressTrack}>
-          <View style={[layoutStyles.progressFill, { width: `${progressPercent}%` }]} />
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+      <SafeAreaView style={{ position: 'absolute', top: 0, width: '100%', zIndex: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingTop: 20 }}>
           <TouchableOpacity onPress={() => router.back()}>
             <ArrowLeft color={colors.textMuted} size={28} />
           </TouchableOpacity>
+
+          <View style={{ flex: 1, height: 14, backgroundColor: colors.locked, borderRadius: 7, marginHorizontal: 15, overflow: 'hidden' }}>
+            <View style={{ height: '100%', backgroundColor: colors.duoGreen, borderRadius: 7, width: `${progressPercent}%` }} />
+          </View>
+
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Heart color={colors.heartRed} size={24} fill={colors.heartRed} />
-            <Text style={[layoutStyles.statText, { color: colors.heartRed, marginLeft: 5 }]}>{lives}</Text>
+            <Text style={{ marginLeft: 6, fontWeight: 'bold', fontSize: 16, color: colors.heartRed }}>{lives}</Text>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
 
       <View style={styles.wordContainer}>
         {renderWord(currentWord.word, currentWord.underlined_indices)}
+        
+        {/* Play Audio Button */}
+        <TouchableOpacity 
+          style={{ marginTop: 20, padding: 15, backgroundColor: colors.surface, borderRadius: 50, elevation: 2, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowOffset: { width: 0, height: 2 }, shadowRadius: 4 }} 
+          onPress={playWordAudio}
+        >
+          <Volume2 color={colors.duoGreen} size={32} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.optionsGrid}>
-        {currentRule.option_buttons.map((opt) => {
+        {currentLevelData.option_buttons.map((opt) => {
           const isCurrentChoice = feedback.choice === opt;
           return (
             <TouchableOpacity 
