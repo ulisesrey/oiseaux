@@ -1,7 +1,3 @@
-# Variables
-BUILD_PROFILE = preview
-PLATFORM = android
-
 # Default action
 all: help
 
@@ -17,9 +13,23 @@ install:
 	npm install
 
 ## build: Run a local EAS production build
-build:
-	@echo "Starting local $(BUILD_PROFILE) build for $(PLATFORM)..."
-	eas build --profile $(BUILD_PROFILE) --platform $(PLATFORM) --local
+# Variables
+PLATFORM = android
+
+# development will be linked
+build-development:
+	@echo "Starting local development build for $(PLATFORM)..."
+	eas build --profile development --platform $(PLATFORM) --local
+
+# preview and production are standalone
+build-preview:
+	@echo "Starting local preview build for $(PLATFORM)..."
+	eas build --profile preview --platform $(PLATFORM) --local
+
+# standalone
+build-production:
+	@echo "Starting local production build for $(PLATFORM)..."
+	eas build --profile production --platform $(PLATFORM) --local
 
 ## deploy-web: Export and deploy Oiseaux to GitHub Pages
 deploy-web:
@@ -29,11 +39,12 @@ deploy-web:
 
 ## clean: Remove build artifacts and web exports
 clean:
-	rm -rf *.apk *.aab dist
+	rm -rf *.apk *.aab dist/* builds/*
 	@echo "Cleaned build artifacts."
 
-## dev: Run the development server
+## dev: Run the development server (can't use expo go unless expo go mode (pres "s" to switch between modes))
 dev:
 	npx expo start
+	@echo "!! Can't use expo go unless expo go mode (pres "s" to switch between modes)"
 
 .PHONY: all help install build deploy-web clean dev
