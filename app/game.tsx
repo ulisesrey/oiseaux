@@ -197,7 +197,12 @@ export default function GameScreen() {
             Bonus Combo (x{maxCombo}) : +{maxCombo * 10} ⭐
           </Text>
         </View>
-        <TouchableOpacity style={styles.btn} onPress={() => router.replace("/")}>
+        
+        {/* Pass the completed level identifier back to the menu */}
+        <TouchableOpacity 
+          style={styles.btn} 
+          onPress={() => router.replace({ pathname: "/", params: { completedLevel: levelId } })}
+        >
           <Text style={styles.btnText}>Continuer</Text>
         </TouchableOpacity>
       </View>

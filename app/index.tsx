@@ -1,15 +1,19 @@
-import { useFocusEffect, useRouter } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Check, Flame, Heart, Lock, Star } from 'lucide-react-native';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import wordBank from '../data/wordBank.json';
 import { layoutStyles } from '../styles/layout';
-import { colors } from '../styles/theme'; // Fixed import path!
+import { colors } from '../styles/theme';
 import { getUserStats, UserStats } from '../utils/storage';
 
 export default function MainMenu() {
   const router = useRouter();
+  const { completedLevel } = useLocalSearchParams<{ completedLevel?: string }>();
+  
+  const scrollViewRef = useRef<ScrollView>(null);
   const [stats, setStats] = useState<UserStats | null>(null);
+  const [layouts, setLayouts] = useState<Record<string, number>>({});
 
   const loadStats = async () => {
     const data = await getUserStats();
@@ -23,6 +27,22 @@ export default function MainMenu() {
       return () => clearInterval(interval);
     }, [])
   );
+
+  // Smoothly scroll down to the recently completed exercise group
+  useEffect(() => {
+    if (completedLevel && layouts[completedLevel] !== undefined) {
+      const timer = setTimeout(() => {
+        scrollViewRef.current?.scrollTo({
+          y: layouts[completedLevel] - 30, // Extra padding so the section header is beautifully visible
+          animated: true,
+        });
+        // Clear parameter from routing history so it doesn't snap back on accidental re-renders
+        router.setParams({ completedLevel: undefined });
+      }, 150);
+
+      return () => clearTimeout(timer);
+    }
+  }, [completedLevel, layouts]);
 
   const flatSublevels = useMemo(() => {
     return wordBank.flatMap(level =>
@@ -51,11 +71,23 @@ export default function MainMenu() {
       </View>
 
       {/* --- THE PATH --- */}
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        
+      <ScrollView 
+        ref={scrollViewRef}
+        contentContainerStyle={styles.scrollContent}
+      >
         {wordBank.map((levelBlock) => (
-          <View key={`level-${levelBlock.level}`} style={styles.levelBlockWrapper}>
-            
+          <View 
+            key={`level-${levelBlock.level}`} 
+            style={styles.levelBlockWrapper}
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              // Map all sublevel IDs inside this block to this specific global Y position
+              levelBlock.sublevels.forEach(sub => {
+                const subId = `${levelBlock.level}-${sub.sublevel}`;
+                setLayouts(prev => ({ ...prev, [subId]: y }));
+              });
+            }}
+          >
             {/* Section Header */}
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>{levelBlock.level_title}</Text>
@@ -79,7 +111,6 @@ export default function MainMenu() {
                   key={id} 
                   style={[styles.nodeWrapper, { transform: [{ translateX }] }]}
                 >
-                  
                   {/* The Circular Button */}
                   <TouchableOpacity 
                     disabled={!isUnlocked}
@@ -110,7 +141,6 @@ export default function MainMenu() {
                       {sublevel.description}
                     </Text>
                   </View>
-
                 </View>
               );
             })}
@@ -121,11 +151,10 @@ export default function MainMenu() {
   );
 }
 
-// RESTORED STYLES FOR THIS SCREEN
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background, // Using our new theme color!
+    backgroundColor: colors.background,
   },
   scrollContent: {
     paddingVertical: 40,
