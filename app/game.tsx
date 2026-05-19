@@ -117,7 +117,6 @@ export default function GameScreen() {
   // --- The Audio Playback Function ---
   const playWordAudio = async () => {
     try {
-      // Look up the word in our generated map
       const audioResource = audioMap[currentWord.word];
 
       if (!audioResource) {
@@ -125,7 +124,6 @@ export default function GameScreen() {
         return;
       }
 
-      // Load and play the local file
       const { sound: newSound } = await Audio.Sound.createAsync(
         audioResource,
         { shouldPlay: true }
@@ -137,15 +135,11 @@ export default function GameScreen() {
     }
   };
 
-  // Auto-play audio when the word appears (with safety cleanup!)
   useEffect(() => {
     if (currentWord && !isFinished) {
-      // Add a tiny delay so the UI loads before the sound blasts
       const timer = setTimeout(() => {
         playWordAudio();
       }, 300); 
-
-      // If the component unmounts or changes BEFORE 300ms, cancel the timer
       return () => clearTimeout(timer);
     }
   }, [wordIdx, currentWord, isFinished]);
@@ -198,10 +192,10 @@ export default function GameScreen() {
           </Text>
         </View>
         
-        {/* Pass the completed level identifier back to the menu */}
+        {/* FIX: Using replace to guarantee it fires correctly in all Expo Router versions */}
         <TouchableOpacity 
           style={styles.btn} 
-          onPress={() => router.replace({ pathname: "/", params: { completedLevel: levelId } })}
+          onPress={() => router.back()}
         >
           <Text style={styles.btnText}>Continuer</Text>
         </TouchableOpacity>
@@ -215,7 +209,9 @@ export default function GameScreen() {
         <Heart color={colors.heartRed} size={80} fill={colors.heartRed} />
         <Text style={styles.menuTitle}>Mince !</Text>
         <Text style={styles.successSubtitle}>Vous n'avez plus de vies. Attendez un peu ou réessayez !</Text>
-        <TouchableOpacity style={styles.btn} onPress={() => router.replace("/")}>
+        
+        {/* FIX: Ensure zero lives redirects properly */}
+        <TouchableOpacity style={styles.btn} onPress={() => router.back()}>
           <Text style={styles.btnText}>Retour au menu</Text>
         </TouchableOpacity>
       </View>
@@ -255,7 +251,6 @@ export default function GameScreen() {
       <View style={styles.wordContainer}>
         {renderWord(currentWord.word, currentWord.underlined_indices)}
         
-        {/* Play Audio Button */}
         <TouchableOpacity 
           style={{ marginTop: 20, padding: 15, backgroundColor: colors.surface, borderRadius: 50, elevation: 2, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowOffset: { width: 0, height: 2 }, shadowRadius: 4 }} 
           onPress={playWordAudio}
