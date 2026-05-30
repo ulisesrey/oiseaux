@@ -5,22 +5,28 @@ import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, Text, TextInpu
 import wordBank from '../data/wordBank.json';
 import { layoutStyles } from '../styles/layout';
 import { colors } from '../styles/theme';
-import { getUserStats, registerUserLocal, UserStats } from '../utils/storage';
+// 1. We imported calculateStreak here!
+import { calculateStreak, getUserStats, registerUserLocal, UserStats } from '../utils/storage';
 import { supabase } from '../utils/supabase';
 
 export default function MainMenu() {
   const router = useRouter();
   const [stats, setStats] = useState<UserStats | null>(null);
+  
+  // 2. We added a state to hold the current streak
+  const [streak, setStreak] = useState(0); 
 
   // --- Registration State ---
   const [usernameInput, setUsernameInput] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [isFocused, setIsFocused] = useState(false); // <-- Add this new line!
+  const [isFocused, setIsFocused] = useState(false);
 
   const loadStats = async () => {
     const data = await getUserStats();
     setStats(data);
+    // 3. We calculate the streak and save it to the state
+    setStreak(calculateStreak(data.played_dates)); 
   };
 
   useFocusEffect(
@@ -42,7 +48,6 @@ export default function MainMenu() {
     let cleanName = '';
 
     if (isSkip) {
-      // Generate a unique anonymous name so the database doesn't reject duplicates
       const randomNum = Math.floor(1000 + Math.random() * 9000);
       cleanName = `Anonyme-${randomNum}`;
     } else {
@@ -56,19 +61,16 @@ export default function MainMenu() {
     setIsRegistering(true);
     setErrorMsg('');
 
-    // 1. Try to insert the new user into Supabase
     const { data, error } = await supabase
       .from('users')
-      .insert([{ username: cleanName, stars: stats?.stars || 0 }])
+      .insert([{ username: cleanName, stars: stats?.stars || 0, played_dates: stats?.played_dates || [] }])
       .select()
       .single();
 
     if (error) {
       setIsRegistering(false);
-      // Supabase error code 23505 means "Unique Violation" (Name already taken)
       if (error.code === '23505') {
         if (isSkip) {
-          // Extremely rare chance the random number was taken. Just try again!
           handleRegister(true);
           return;
         }
@@ -80,10 +82,9 @@ export default function MainMenu() {
       return;
     }
 
-    // 2. If successful, save the new ID and Name to the phone's local storage
     if (data) {
       const newStats = await registerUserLocal(data.username, data.id);
-      setStats(newStats); // Automatically hides the registration screen!
+      setStats(newStats); 
     }
     setIsRegistering(false);
   };
@@ -95,20 +96,19 @@ export default function MainMenu() {
     return (
       <SafeAreaView style={styles.regSafeArea}>
         <View style={styles.regContainer}>
-          <Text style={styles.regTitle}>Prêt à décoller ? </Text>
+          <Text style={styles.regTitle}>Prêt à décoller ? 🐦</Text>
+          <Text style={styles.regSubtitle}>Choisis un pseudo pour rejoindre le classement mondial.</Text>
 
-            <TextInput
+          <TextInput
             style={styles.regInput}
-            // If focused, show nothing. Otherwise, show the placeholder!
             placeholder={isFocused ? '' : 'Ton pseudo...'} 
             placeholderTextColor="#A0A0A0"
             value={usernameInput}
-            // Track when the user taps in and out of the box
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             onChangeText={(text) => {
               setUsernameInput(text);
-              setErrorMsg(''); // Clear error when typing
+              setErrorMsg(''); 
             }}
             autoCapitalize="none"
             autoCorrect={false}
@@ -146,9 +146,11 @@ export default function MainMenu() {
     <SafeAreaView style={styles.safeArea}>
       {/* --- HEADER HUD --- */}
       <View style={layoutStyles.headerContainer}>
+        
+        {/* 4. And finally, we display the dynamic streak here! */}
         <View style={layoutStyles.statItem}>
           <Flame color={colors.heartRed} size={20} fill={colors.heartRed} />
-          <Text style={layoutStyles.statText}>4</Text>
+          <Text style={layoutStyles.statText}>{streak}</Text> 
         </View>
         
         <TouchableOpacity 
@@ -222,7 +224,6 @@ export default function MainMenu() {
 }
 
 const styles = StyleSheet.create({
-  // --- Game Map Styles ---
   safeArea: { flex: 1, backgroundColor: colors.background },
   scrollContent: { paddingVertical: 40, alignItems: 'center' },
   levelBlockWrapper: { width: '100%', alignItems: 'center', marginBottom: 20 },
