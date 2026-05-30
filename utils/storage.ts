@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { supabase } from './supabase'; // <-- Add this import
 
 const STORAGE_KEY = 'oiseaux_user_data';
 
@@ -7,6 +8,8 @@ export interface UserStats {
   stars: number;
   lives: number;
   lastHeartRefresh: number; // To recover lives over time later!
+  username?: string;        // <-- Added for Supabase leaderboard
+  supabaseId?: string;      // <-- Added for Supabase leaderboard
 }
 
 const DEFAULT_STATS: UserStats = {
@@ -14,6 +17,15 @@ const DEFAULT_STATS: UserStats = {
   stars: 0,
   lives: 5,
   lastHeartRefresh: Date.now(),
+};
+
+// --- NEW FUNCTION: Save Supabase credentials locally ---
+export const registerUserLocal = async (username: string, supabaseId: string): Promise<UserStats> => {
+  const stats = await getUserStats();
+  stats.username = username;
+  stats.supabaseId = supabaseId;
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
+  return stats;
 };
 
 export const saveLevelCompletion = async (levelIdx: number | string): Promise<void> => {
@@ -40,7 +52,7 @@ export const getUserStats = async (): Promise<UserStats> => {
     let stats: UserStats = { ...DEFAULT_STATS, ...JSON.parse(data) };
 
     // 1000 ms * 60 sec * 60 min * 24 hrs = 1 day
-    const REFRESH_RATE = 60 * 60 * 1000; // 1h
+    const REFRESH_RATE = 2 * 60 * 1000; // 1h
     if (Date.now() - stats.lastHeartRefresh > REFRESH_RATE && stats.lives < 5) {
       stats.lives = 5; // Change to stats.lives + 1 ?
       stats.lastHeartRefresh = Date.now();
@@ -56,7 +68,20 @@ export const getUserStats = async (): Promise<UserStats> => {
 export const addStars = async (amount: number) => {
   const stats = await getUserStats();
   stats.stars += amount;
+  
+  // 1. Save locally so the app works offline instantly
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
+
+  // 2. Sync to the cloud in the background (if they are registered)
+  if (stats.supabaseId) {
+    supabase
+      .from('users')
+      .update({ stars: stats.stars })
+      .eq('id', stats.supabaseId)
+      .then(({ error }) => {
+        if (error) console.error("Error syncing stars to cloud:", error);
+      });
+  }
 };
 
 export const updateLives = async (newLives: number) => {
