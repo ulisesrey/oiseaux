@@ -16,6 +16,7 @@ export default function MainMenu() {
   const [usernameInput, setUsernameInput] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isFocused, setIsFocused] = useState(false); // <-- Add this new line!
 
   const loadStats = async () => {
     const data = await getUserStats();
@@ -37,9 +38,20 @@ export default function MainMenu() {
   }, []);
 
   // --- Handle Supabase Registration ---
-  const handleRegister = async () => {
-    const cleanName = usernameInput.trim();
-    if (!cleanName) return;
+  const handleRegister = async (isSkip = false) => {
+    let cleanName = '';
+
+    if (isSkip) {
+      // Generate a unique anonymous name so the database doesn't reject duplicates
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      cleanName = `Anonyme-${randomNum}`;
+    } else {
+      cleanName = usernameInput.trim();
+      if (!cleanName) {
+        setErrorMsg('Entre un pseudo !');
+        return;
+      }
+    }
 
     setIsRegistering(true);
     setErrorMsg('');
@@ -55,6 +67,11 @@ export default function MainMenu() {
       setIsRegistering(false);
       // Supabase error code 23505 means "Unique Violation" (Name already taken)
       if (error.code === '23505') {
+        if (isSkip) {
+          // Extremely rare chance the random number was taken. Just try again!
+          handleRegister(true);
+          return;
+        }
         setErrorMsg('Ce nom est déjà pris. Essayez un autre !');
       } else {
         setErrorMsg('Erreur de connexion. Réessayez.');
@@ -66,7 +83,7 @@ export default function MainMenu() {
     // 2. If successful, save the new ID and Name to the phone's local storage
     if (data) {
       const newStats = await registerUserLocal(data.username, data.id);
-      setStats(newStats); // This will automatically hide the registration screen!
+      setStats(newStats); // Automatically hides the registration screen!
     }
     setIsRegistering(false);
   };
@@ -76,37 +93,48 @@ export default function MainMenu() {
   // --- RENDER REGISTRATION SCREEN IF NO USERNAME ---
   if (!stats.username) {
     return (
-      <SafeAreaView style={[styles.safeArea, { justifyContent: 'center', padding: 20 }]}>
-        <View style={styles.registrationCard}>
-          <Text style={{ fontSize: 40, textAlign: 'center', marginBottom: 10 }}>👋</Text>
-          <Text style={styles.sectionTitle}>Bienvenue !</Text>
-          <Text style={[styles.nodeLabel, { textAlign: 'center', marginTop: 10, marginBottom: 30 }]}>
-            Comment tu t'appelles ? Ce nom apparaîtra dans le classement v2.
-          </Text>
+      <SafeAreaView style={styles.regSafeArea}>
+        <View style={styles.regContainer}>
+          <Text style={styles.regTitle}>Prêt à décoller ? </Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Ton pseudo..."
-            placeholderTextColor={colors.textMuted}
+            <TextInput
+            style={styles.regInput}
+            // If focused, show nothing. Otherwise, show the placeholder!
+            placeholder={isFocused ? '' : 'Ton pseudo...'} 
+            placeholderTextColor="#A0A0A0"
             value={usernameInput}
-            onChangeText={setUsernameInput}
+            // Track when the user taps in and out of the box
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onChangeText={(text) => {
+              setUsernameInput(text);
+              setErrorMsg(''); // Clear error when typing
+            }}
             autoCapitalize="none"
             autoCorrect={false}
             maxLength={15}
           />
 
-          {errorMsg ? <Text style={styles.errorText}>{errorMsg}</Text> : null}
+          {errorMsg ? <Text style={styles.regErrorText}>{errorMsg}</Text> : null}
 
           <TouchableOpacity 
-            style={[layoutStyles.btn, { marginTop: 20, width: '100%', opacity: isRegistering ? 0.7 : 1 }]} 
-            onPress={handleRegister}
+            style={[styles.regPrimaryBtn, { opacity: isRegistering ? 0.7 : 1 }]} 
+            onPress={() => handleRegister(false)}
             disabled={isRegistering}
           >
             {isRegistering ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={layoutStyles.btnText}>Commencer</Text>
+              <Text style={styles.regPrimaryBtnText}>Commencer</Text>
             )}
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.regSkipBtn} 
+            onPress={() => handleRegister(true)}
+            disabled={isRegistering}
+          >
+            <Text style={styles.regSkipBtnText}>Jouer en anonyme</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -116,14 +144,13 @@ export default function MainMenu() {
   // --- RENDER NORMAL MAIN MENU ---
   return (
     <SafeAreaView style={styles.safeArea}>
-    {/* --- HEADER HUD --- */}
+      {/* --- HEADER HUD --- */}
       <View style={layoutStyles.headerContainer}>
         <View style={layoutStyles.statItem}>
           <Flame color={colors.heartRed} size={20} fill={colors.heartRed} />
           <Text style={layoutStyles.statText}>4</Text>
         </View>
         
-        {/* FIX: Make the Star counter a clickable button to the Leaderboard! */}
         <TouchableOpacity 
           style={[layoutStyles.statItem, layoutStyles.starBg]}
           onPress={() => router.push("/ranking")}
@@ -195,6 +222,7 @@ export default function MainMenu() {
 }
 
 const styles = StyleSheet.create({
+  // --- Game Map Styles ---
   safeArea: { flex: 1, backgroundColor: colors.background },
   scrollContent: { paddingVertical: 40, alignItems: 'center' },
   levelBlockWrapper: { width: '100%', alignItems: 'center', marginBottom: 20 },
@@ -209,8 +237,35 @@ const styles = StyleSheet.create({
   nodeLabel: { fontSize: 14, fontWeight: 'bold', color: colors.textMain },
   nodeLabelLocked: { color: colors.textMuted },
   
-  // --- New Styles for Registration ---
-  registrationCard: { backgroundColor: colors.surface, padding: 30, borderRadius: 24, borderWidth: 2, borderColor: colors.border, shadowColor: colors.shadow, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8, elevation: 5 },
-  input: { backgroundColor: colors.background, borderWidth: 2, borderColor: colors.border, borderRadius: 16, padding: 15, fontSize: 18, color: colors.textMain, fontWeight: 'bold', textAlign: 'center' },
-  errorText: { color: colors.heartRed, fontWeight: 'bold', textAlign: 'center', marginTop: 10 },
+  // --- Beautiful Registration Screen Styles ---
+  regSafeArea: { flex: 1, backgroundColor: colors.duoGreen },
+  regContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 30 },
+  regTitle: { fontSize: 36, fontWeight: '900', color: '#ffffff', marginBottom: 10, textAlign: 'center' },
+  regSubtitle: { fontSize: 16, color: '#E0F2E9', textAlign: 'center', marginBottom: 40, lineHeight: 22 },
+  regInput: { 
+    backgroundColor: '#ffffff', 
+    width: '100%', 
+    paddingVertical: 18, 
+    paddingHorizontal: 20, 
+    borderRadius: 16, 
+    fontSize: 20, 
+    color: colors.duoGreen, 
+    fontWeight: 'bold', 
+    textAlign: 'center', 
+    marginBottom: 15,
+    shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3
+  },
+  regErrorText: { color: '#FFB4A2', fontWeight: 'bold', textAlign: 'center', marginBottom: 15, fontSize: 16 },
+  regPrimaryBtn: { 
+    backgroundColor: colors.gold, 
+    width: '100%', 
+    paddingVertical: 18, 
+    borderRadius: 16, 
+    alignItems: 'center', 
+    marginBottom: 20,
+    shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 5
+  },
+  regPrimaryBtnText: { color: '#ffffff', fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase' },
+  regSkipBtn: { paddingVertical: 10, paddingHorizontal: 20 },
+  regSkipBtnText: { color: '#E0F2E9', fontSize: 16, fontWeight: '600', textDecorationLine: 'underline' },
 });
